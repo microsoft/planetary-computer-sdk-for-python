@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+if [[ "${CI}" ]]; then
+    set -x
+fi
+
+function usage() {
+    echo -n \
+        "Usage: $(basename "$0") PROJECT_DIR
+Runs tests.
+
+"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    if [[ "${1}" == "--help" ]]; then
+        usage;
+    else
+        echo "Running mypy..."
+        mypy planetary_computer
+
+        echo "Running black..."
+        black --check planetary_computer tests
+
+        echo "Running flake8..."
+        flake8 planetary_computer tests
+
+        echo "Running unit tests..."
+        python -m unittest discover tests
+    fi
+fi
