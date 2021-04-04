@@ -1,0 +1,15 @@
+function usage() {
+    echo -n \
+        "Usage: $(basename "$0")
+Formats code
+"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+    if [[ "${1}" == "--help" ]]; then
+        usage;
+    else
+        black planetary_computer
+        black tests
+    fi
+fi
