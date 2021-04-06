@@ -6,9 +6,8 @@ from urllib.parse import parse_qs, urlparse
 import planetary_computer as pc
 import pystac
 
-# TODO: change these, and associated data URLs to production service when available
-ACCOUNT_NAME = "kennytestmspc"
-CONTAINER_NAME = "ktm"
+ACCOUNT_NAME = "naipeuwest"
+CONTAINER_NAME = "naip"
 
 EXP_IMAGE = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.tif"
 EXP_METADATA = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.txt"

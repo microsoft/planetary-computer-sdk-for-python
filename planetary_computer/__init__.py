@@ -11,10 +11,7 @@ import requests
 import pystac
 
 
-# TODO: change this endpoint to production service when available
-SAS_TOKEN_ENDPOINT = (
-    "https://pct-pqe-westeurope-azavea-apim.azure-api.net/data/v1/sas-token"
-)
+SAS_TOKEN_ENDPOINT = "https://planetarycomputer.microsoft.com/data/v1/token"
 
 # Cache of signing requests so we can reuse them
 # Key is the signing URL, value is the SAS token
@@ -86,9 +83,12 @@ def sign(unsigned_url: str) -> str:
     account, container = parse_blob_url(unsigned_url)
     signing_url = f"{SAS_TOKEN_ENDPOINT}/{account}/{container}"
     token = TOKEN_CACHE.get(signing_url)
+
     if not token or token_expired(token):
         response = requests.get(signing_url)
         response.raise_for_status()
+        print(f"resp: {response.json()}")
+
         token = response.json()["token"]
         if not token:
             raise ValueError(f"No token found in response: {response.json()}")
