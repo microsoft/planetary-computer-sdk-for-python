@@ -19,7 +19,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         usage;
     else
         echo "Running mypy..."
-        mypy planetary_computer
+        mypy planetary_computer tests
 
         echo "Running black..."
         black --check planetary_computer tests
