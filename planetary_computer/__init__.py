@@ -1,28 +1,20 @@
 """Planetary Computer"""
 
 import copy
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 from urllib.parse import urlparse
 
 import requests
-from pydantic.error_wrappers import ValidationError
 import pystac
 
 from .models import SASToken, SignedLink
 from .settings import Settings
 
-SAS_TOKEN_ENDPOINT = "https://planetarycomputer.microsoft.com/data/v1/token"
-
 # Cache of signing requests so we can reuse them
 # Key is the signing URL, value is the SAS token
 TOKEN_CACHE: Dict[str, SASToken] = {}
 
-# Settings are not required. Only use them if they're defined.
-SETTINGS: Optional[Settings] = None
-try:
-    SETTINGS = Settings()
-except ValidationError:
-    pass
+SETTINGS = Settings()
 
 
 def parse_blob_url(url: str) -> Tuple[str, str]:
@@ -61,7 +53,7 @@ def sign(unsigned_url: str) -> SignedLink:
     The signed URL
     """
     account, container = parse_blob_url(unsigned_url)
-    signing_url = f"{SAS_TOKEN_ENDPOINT}/{account}/{container}"
+    signing_url = f"{SETTINGS.sas_url}/{account}/{container}"
     token = TOKEN_CACHE.get(signing_url)
 
     # Refresh the token if there's less than a minute remaining,
@@ -69,7 +61,7 @@ def sign(unsigned_url: str) -> SignedLink:
     if not token or token.ttl() < 60:
         headers = (
             {"Ocp-Apim-Subscription-Key": SETTINGS.subscription_key}
-            if SETTINGS
+            if SETTINGS.subscription_key
             else None
         )
         response = requests.get(signing_url, headers=headers)
