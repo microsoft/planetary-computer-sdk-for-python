@@ -34,4 +34,5 @@ setup(name=name,
       author_email="planetarycomputer@microsoft.com",
       packages=find_namespace_packages(),
       include_package_data=False,
+      entry_points={"console_scripts": ["planetarycomputer=planetary_computer.scripts.cli:app"]},
       install_requires=install_requires)

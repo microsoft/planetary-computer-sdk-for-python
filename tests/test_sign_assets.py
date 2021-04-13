@@ -6,9 +6,9 @@ from urllib.parse import parse_qs, urlparse
 import planetary_computer as pc
 import pystac
 
-# TODO: change these, and associated data URLs to production service when available
-ACCOUNT_NAME = "kennytestmspc"
-CONTAINER_NAME = "ktm"
+
+ACCOUNT_NAME = "naipeuwest"
+CONTAINER_NAME = "naip"
 
 EXP_IMAGE = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.tif"
 EXP_METADATA = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.txt"
@@ -25,22 +25,22 @@ def get_sample_item() -> pystac.Item:
 
 
 class TestSignAssests(unittest.TestCase):
-    def assertSignedUrl(self, signed_url: str):
+    def assertSignedUrl(self, signed_url: str) -> None:
         # Ensure the signed item has an "se" URL parameter added to it,
         # which indicates it has been signed
         parsed_url = urlparse(signed_url)
         query_params = parse_qs(parsed_url.query)
         self.assertIsNotNone(query_params["se"])
 
-    def test_parse_blob_url(self):
+    def test_parse_blob_url(self) -> None:
         account, container = pc.parse_blob_url(EXP_IMAGE)
         self.assertEqual(ACCOUNT_NAME, account)
         self.assertEqual(CONTAINER_NAME, container)
 
-    def test_signed_url(self):
-        self.assertSignedUrl(pc.sign(EXP_IMAGE))
+    def test_signed_url(self) -> None:
+        self.assertSignedUrl(pc.sign(EXP_IMAGE).href)
 
-    def test_unsigned_assets(self):
+    def test_unsigned_assets(self) -> None:
         item = get_sample_item()
 
         # Simple test to ensure the sample image has the data we're expecting
@@ -48,7 +48,7 @@ class TestSignAssests(unittest.TestCase):
         self.assertEqual(EXP_METADATA, item.assets["metadata"].href)
         self.assertEqual(EXP_THUMBNAIL, item.assets["thumbnail"].href)
 
-    def test_signed_assets(self):
+    def test_signed_assets(self) -> None:
         unsigned_item = get_sample_item()
         signed_item = pc.sign_assets(unsigned_item)
 

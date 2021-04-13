@@ -55,7 +55,7 @@
     "assets":{
         "image":{
             "title":"RGBIR COG tile",
-            "href":"https://kennytestmspc.blob.core.windows.net/ktm/01.tif",
+            "href":"https://naipeuwest.blob.core.windows.net/naip/01.tif",
             "type":"image/tiff; application=geotiff; profile=cloud-optimized",
             "roles":[
                 "data"
@@ -78,7 +78,7 @@
         },
         "metadata":{
             "title":"FGDC Metdata",
-            "href":"https://kennytestmspc.blob.core.windows.net/ktm/01.txt",
+            "href":"https://naipeuwest.blob.core.windows.net/naip/01.txt",
             "type":"text/plain",
             "roles":[
                 "metadata"
@@ -86,7 +86,7 @@
         },
         "thumbnail":{
             "title":"Thumbnail",
-            "href":"https://kennytestmspc.blob.core.windows.net/ktm/01.jpg",
+            "href":"https://naipeuwest.blob.core.windows.net/naip/01.jpg",
             "type":"image/jpeg",
             "roles":[
                 "thumbnail"
