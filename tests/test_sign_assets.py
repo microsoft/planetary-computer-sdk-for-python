@@ -4,6 +4,7 @@ import unittest
 from urllib.parse import parse_qs, urlparse
 
 import planetary_computer as pc
+from planetary_computer.utils import parse_blob_url
 import pystac
 
 
@@ -33,7 +34,7 @@ class TestSignAssests(unittest.TestCase):
         self.assertIsNotNone(query_params["se"])
 
     def test_parse_blob_url(self) -> None:
-        account, container = pc.parse_blob_url(EXP_IMAGE)
+        account, container = parse_blob_url(EXP_IMAGE)
         self.assertEqual(ACCOUNT_NAME, account)
         self.assertEqual(CONTAINER_NAME, container)
 

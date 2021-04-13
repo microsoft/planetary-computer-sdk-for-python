@@ -1,3 +1,4 @@
+from functools import lru_cache
 from typing import Optional
 import pydantic
 
@@ -31,3 +32,8 @@ class Settings(pydantic.BaseSettings):
     class Config:
         env_file = SETTINGS_ENV_FILE
         env_prefix = SETTINGS_ENV_PREFIX
+
+    @staticmethod
+    @lru_cache(maxsize=1)
+    def get() -> "Settings":
+        return Settings()
