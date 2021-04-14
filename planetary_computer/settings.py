@@ -37,3 +37,16 @@ class Settings(pydantic.BaseSettings):
     @lru_cache(maxsize=1)
     def get() -> "Settings":
         return Settings()
+
+
+def set_subscription_key(key: str) -> None:
+    """Sets the Planetary Computer API subscription key to use
+    within the process that loaded this module. Ths does not write
+    to the settings file.
+
+    Args:
+      key: The Planetary Computer API subscription key to use
+        for methods inside this library that can utilize the key,
+        such as SAS token generation.
+    """
+    Settings.get().subscription_key = key
