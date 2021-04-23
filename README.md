@@ -5,7 +5,7 @@ Python library for interacting with the Microsoft Planetary Computer.
 ## Installation
 
 ```python
-pip install planetarycomputer
+pip install planetary-computer
 ```
 
 If you have an API subscription key, you may provide it to the library by using the included configuration CLI:
