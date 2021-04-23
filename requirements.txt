@@ -1,5 +1,0 @@
-click>=7.1
-pydantic[dotenv]>=1.7.3
-pystac>=0.5.6,<0.6
-pytz>=2020.5
-requests>=2.25.1
