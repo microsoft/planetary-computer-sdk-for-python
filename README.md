@@ -42,28 +42,40 @@ pip install -e .
 
 ## Usage
 
-This library currently assists with signing Azure Blob Storage URLs, both within PySTAC assets, and by providing raw URLs. The following examples demonstrate both of these use cases:
+This library currently assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. There is also a convenience function `search_and_sign` that accepts a [STAC API Client](https://github.com/stac-utils/pystac-client) `ItemSearch`, performs a search and returns the resulting `ItemCollection` with all assets signed. The following example demonstrates these use cases:
 
 ```python
-import pystac
+from pystac import Asset, Item
+from pystac_client import ItemCollection, ItemSearch
 import planetary_computer as pc
 
-raw_item: pystac.Item = ...
-item: pystac.Item = pc.sign_assets(raw_item)
 
+# The sign function may be called directly on the Item
+raw_item: Item = ...
+item: Item = pc.sign(raw_item)
 # Now use the item however you want. All appropriate assets are signed for read access.
-```
 
-```python
-import planetary_computer as pc
-import pystac
+# The sign function also works with an Asset
+raw_asset: Asset = raw_item.assets['SR_B4']
+asset = pc.sign(raw_asset)
 
-item: pystac.Item = ...  # Landsat item
+# The sign function also works with an HREF
+raw_href: str = raw_asset.href
+href = pc.sign(raw_href)
 
-b4_href = pc.sign(item.assets['SR_B4'].href)
+# The sign function also works with an ItemCollection
+raw_item_collection = ItemCollection([raw_item])
+item_collection = pc.sign(raw_item_collection)
 
-with rasterio.open(b4_href) as ds:
-   ...
+# The search_and_sign function accepts an ItemSearch, and signs the resulting ItemCollection
+search = ItemSearch(
+    url=...,
+    bbox=...,
+    collections=...,
+    limit=...,
+    max_items=...,
+)
+signed_item_collection = pc.search_and_sign(search)
 ```
 
 
