@@ -1,14 +1,14 @@
 from datetime import datetime, timezone
-from typing import Dict
+from typing import Dict, TypeVar
 
-from pydantic import BaseModel, Field
-import pystac
-from pystac.utils import datetime_to_str
 import requests
+from pydantic import BaseModel, Field
+from pystac import Asset, Item
+from pystac.utils import datetime_to_str
+from pystac_client import ItemCollection, ItemSearch
 
-
-from planetary_computer.utils import parse_blob_url
 from planetary_computer.settings import Settings
+from planetary_computer.utils import parse_blob_url
 
 
 class SASBase(BaseModel):
@@ -49,22 +49,37 @@ class SASToken(SASBase):
 # Key is the signing URL, value is the SAS token
 TOKEN_CACHE: Dict[str, SASToken] = {}
 
+T = TypeVar("T", str, Asset, Item, ItemCollection)
 
-def sign(url: str) -> str:
-    """Sign a URL with a Shared Access (SAS)
+
+def sign(obj: T) -> T:
+    """
+    Sign all relevant URLs within an object with a Shared Access (SAS)
     Token, which allows for read access.
 
     Parameters
     ----------
-    url (str): The HREF of the asset in the format of a URL.
-        This can be found on STAC Item's Asset 'href' value.
+    obj (T): Any supported object containing one or more URLs to sign. Must be one of:
+             str (a URL), Asset, Item, or ItemCollection
 
     Returns
     -------
-    The signed HREF that permits read access to the asset.
+    The object with all relevant URLs updated to include SAS Tokens
     """
-    link = sign_link(url)
-    return link.href
+    if isinstance(obj, str):
+        link = sign_link(obj)
+        return link.href
+
+    if isinstance(obj, Item):
+        return sign_item(obj)
+
+    if isinstance(obj, Asset):
+        return sign_asset(obj)
+
+    if isinstance(obj, ItemCollection):
+        return sign_item_collection(obj)
+
+    raise TypeError("Invalid type, must be one of: str, Asset, Item, or ItemCollection")
 
 
 def sign_link(url: str) -> SignedLink:
@@ -102,19 +117,69 @@ def sign_link(url: str) -> SignedLink:
     return token.sign(url)
 
 
-def sign_assets(item: pystac.Item) -> pystac.Item:
+def sign_item(item: Item) -> Item:
     """Sign all assets within a PySTAC item
 
     Args:
-        item (pystac.Item): The Item whose assets that will be signed
+        item (Item): The Item whose assets that will be signed
 
     Returns:
-        pystac.Item: A new copy of the Item where all assets HREFs have
+        Item: A new copy of the Item where all assets' HREFs have
         been replaced with a signed version. In addition, a "msft:expiry"
         property is added to the Item properties indicating the earliest
         expiry time for any assets that were signed.
     """
     signed_item = item.clone()
     for key in signed_item.assets:
-        signed_item.assets[key].href = sign(signed_item.assets[key].href)
+        signed_item.assets[key] = sign_asset(signed_item.assets[key])
     return signed_item
+
+
+def sign_asset(asset: Asset) -> Asset:
+    """Sign a PySTAC asset
+
+    Args:
+        asset (Asset): The Asset to sign
+
+    Returns:
+        Asset: A new copy of the Asset where the HREF is replaced with a
+        signed version.
+    """
+    signed_asset = asset.clone()
+    signed_asset.href = sign(signed_asset.href)
+    return signed_asset
+
+
+def sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
+    """Sign a PySTAC item collection
+
+    Args:
+        item_collection (ItemCollection): The ItemCollection whose assets will be signed
+
+    Returns:
+        ItemCollection: A new copy of the ItemCollection where all assets'
+        HREFs for each item have been replaced with a signed version. In addition,
+        a "msft:expiry" property is added to the Item properties indicating the
+        earliest expiry time for any assets that were signed.
+    """
+    return ItemCollection.from_dict(
+        {
+            "type": "FeatureCollection",
+            "features": [sign(item).to_dict() for item in item_collection],
+        }
+    )
+
+
+def search_and_sign(search: ItemSearch) -> ItemCollection:
+    """Perform a PySTAC Client search, and sign the resulting item collection
+
+    Args:
+        search (ItemSearch): The ItemSearch whose resulting item assets will be signed
+
+    Returns:
+        ItemCollection: The resulting ItemCollection of the search where all assets'
+        HREFs for each item have been replaced with a signed version. In addition,
+        a "msft:expiry" property is added to the Item properties indicating the
+        earliest expiry time for any assets that were signed.
+    """
+    return sign(search.items_as_collection())
