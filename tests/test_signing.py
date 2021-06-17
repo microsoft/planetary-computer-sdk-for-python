@@ -45,7 +45,7 @@ def get_sample_item_collection() -> ItemCollection:
     return ItemCollection([get_sample_item()])
 
 
-class TestSignAssests(unittest.TestCase):
+class TestSigning(unittest.TestCase):
     def assertSigned(self, url: str) -> None:
         # Ensure the signed item has an "se" URL parameter added to it,
         # which indicates it has been signed
