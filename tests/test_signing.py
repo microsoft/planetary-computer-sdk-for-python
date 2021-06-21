@@ -100,7 +100,7 @@ class TestSigning(unittest.TestCase):
             limit=1,
             max_items=1,
         )
-        signed_item_collection = pc.search_and_sign(search)
+        signed_item_collection = pc.sign(search)
         self.assertEqual(len(list(signed_item_collection)), 1)
         for signed_item in signed_item_collection:
             self.verify_signed_urls_in_item(signed_item)

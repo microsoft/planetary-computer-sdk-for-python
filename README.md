@@ -42,7 +42,7 @@ pip install -e .
 
 ## Usage
 
-This library currently assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. There is also a convenience function `search_and_sign` that accepts a [STAC API Client](https://github.com/stac-utils/pystac-client) `ItemSearch`, performs a search and returns the resulting `ItemCollection` with all assets signed. The following example demonstrates these use cases:
+This library currently assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. In addition, the `sign` function accepts a [STAC API Client](https://github.com/stac-utils/pystac-client) `ItemSearch`, which performs a search and returns the resulting `ItemCollection` with all assets signed. The following example demonstrates these use cases:
 
 ```python
 from pystac import Asset, Item
@@ -67,7 +67,7 @@ href = pc.sign(raw_href)
 raw_item_collection = ItemCollection([raw_item])
 item_collection = pc.sign(raw_item_collection)
 
-# The search_and_sign function accepts an ItemSearch, and signs the resulting ItemCollection
+# The sign function also accepts an ItemSearch, and signs the resulting ItemCollection
 search = ItemSearch(
     url=...,
     bbox=...,
@@ -75,7 +75,7 @@ search = ItemSearch(
     limit=...,
     max_items=...,
 )
-signed_item_collection = pc.search_and_sign(search)
+signed_item_collection = pc.sign(search)
 ```
 
 

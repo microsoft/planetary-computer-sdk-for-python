@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
-from typing import Dict, TypeVar
+from typing import Any, Dict
 
+from functools import singledispatch
 import requests
 from pydantic import BaseModel, Field
 from pystac import Asset, Item
@@ -49,40 +50,14 @@ class SASToken(SASBase):
 # Key is the signing URL, value is the SAS token
 TOKEN_CACHE: Dict[str, SASToken] = {}
 
-T = TypeVar("T", str, Asset, Item, ItemCollection)
 
-
-def sign(obj: T) -> T:
-    """
-    Sign all relevant URLs within an object with a Shared Access (SAS)
-    Token, which allows for read access.
-
-    Parameters
-    ----------
-    obj (T): Any supported object containing one or more URLs to sign. Must be one of:
-             str (a URL), Asset, Item, or ItemCollection
-
-    Returns
-    -------
-    The object with all relevant URLs updated to include SAS Tokens
-    """
-    if isinstance(obj, str):
-        link = sign_link(obj)
-        return link.href
-
-    if isinstance(obj, Item):
-        return sign_item(obj)
-
-    if isinstance(obj, Asset):
-        return sign_asset(obj)
-
-    if isinstance(obj, ItemCollection):
-        return sign_item_collection(obj)
-
+@singledispatch
+def sign(obj: Any) -> Any:
     raise TypeError("Invalid type, must be one of: str, Asset, Item, or ItemCollection")
 
 
-def sign_link(url: str) -> SignedLink:
+@sign.register(str)
+def _sign_url(url: str) -> str:
     """Sign a URL with a Shared Access (SAS) Token, which allows for read access.
 
     Args:
@@ -91,9 +66,7 @@ def sign_link(url: str) -> SignedLink:
             value.
 
     Returns:
-        SignedLink: An object that contains the signed HREF
-        in the format of a URL and the expiry time, which
-        is when the HREF will no longer permit read access.
+        str: The signed HREF
     """
     settings = Settings.get()
     account, container = parse_blob_url(url)
@@ -114,10 +87,11 @@ def sign_link(url: str) -> SignedLink:
         if not token:
             raise ValueError(f"No token found in response: {response.json()}")
         TOKEN_CACHE[token_request_url] = token
-    return token.sign(url)
+    return token.sign(url).href
 
 
-def sign_item(item: Item) -> Item:
+@sign.register(Item)
+def _sign_item(item: Item) -> Item:
     """Sign all assets within a PySTAC item
 
     Args:
@@ -131,11 +105,12 @@ def sign_item(item: Item) -> Item:
     """
     signed_item = item.clone()
     for key in signed_item.assets:
-        signed_item.assets[key] = sign_asset(signed_item.assets[key])
+        signed_item.assets[key] = sign(signed_item.assets[key])
     return signed_item
 
 
-def sign_asset(asset: Asset) -> Asset:
+@sign.register(Asset)
+def _sign_asset(asset: Asset) -> Asset:
     """Sign a PySTAC asset
 
     Args:
@@ -150,7 +125,8 @@ def sign_asset(asset: Asset) -> Asset:
     return signed_asset
 
 
-def sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
+@sign.register(ItemCollection)
+def _sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
     """Sign a PySTAC item collection
 
     Args:
@@ -170,7 +146,8 @@ def sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
     )
 
 
-def search_and_sign(search: ItemSearch) -> ItemCollection:
+@sign.register(ItemSearch)
+def _search_and_sign(search: ItemSearch) -> ItemCollection:
     """Perform a PySTAC Client search, and sign the resulting item collection
 
     Args:
