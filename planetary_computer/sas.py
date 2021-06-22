@@ -53,7 +53,18 @@ TOKEN_CACHE: Dict[str, SASToken] = {}
 
 @singledispatch
 def sign(obj: Any) -> Any:
-    raise TypeError("Invalid type, must be one of: str, Asset, Item, or ItemCollection")
+    """Sign the relevant URLs belonging to any supported object with a
+    Shared Access (SAS) Token, which allows for read access.
+
+    Args:
+        obj (Any): The object to sign. Must be one of:
+            str (URL), Asset, Item, ItemCollection, or ItemSearch
+    Returns:
+        Any: A copy of the object where all relevant URLs have been signed
+    """
+    raise TypeError(
+        "Invalid type, must be one of: str, Asset, Item, ItemCollection, or ItemSearch"
+    )
 
 
 @sign.register(str)
