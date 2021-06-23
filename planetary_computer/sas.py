@@ -1,14 +1,15 @@
 from datetime import datetime, timezone
-from typing import Dict
+from typing import Any, Dict
 
-from pydantic import BaseModel, Field
-import pystac
-from pystac.utils import datetime_to_str
+from functools import singledispatch
 import requests
+from pydantic import BaseModel, Field
+from pystac import Asset, Item
+from pystac.utils import datetime_to_str
+from pystac_client import ItemCollection, ItemSearch
 
-
-from planetary_computer.utils import parse_blob_url
 from planetary_computer.settings import Settings
+from planetary_computer.utils import parse_blob_url
 
 
 class SASBase(BaseModel):
@@ -50,24 +51,24 @@ class SASToken(SASBase):
 TOKEN_CACHE: Dict[str, SASToken] = {}
 
 
-def sign(url: str) -> str:
-    """Sign a URL with a Shared Access (SAS)
-    Token, which allows for read access.
+@singledispatch
+def sign(obj: Any) -> Any:
+    """Sign the relevant URLs belonging to any supported object with a
+    Shared Access (SAS) Token, which allows for read access.
 
-    Parameters
-    ----------
-    url (str): The HREF of the asset in the format of a URL.
-        This can be found on STAC Item's Asset 'href' value.
-
-    Returns
-    -------
-    The signed HREF that permits read access to the asset.
+    Args:
+        obj (Any): The object to sign. Must be one of:
+            str (URL), Asset, Item, ItemCollection, or ItemSearch
+    Returns:
+        Any: A copy of the object where all relevant URLs have been signed
     """
-    link = sign_link(url)
-    return link.href
+    raise TypeError(
+        "Invalid type, must be one of: str, Asset, Item, ItemCollection, or ItemSearch"
+    )
 
 
-def sign_link(url: str) -> SignedLink:
+@sign.register(str)
+def _sign_url(url: str) -> str:
     """Sign a URL with a Shared Access (SAS) Token, which allows for read access.
 
     Args:
@@ -76,9 +77,7 @@ def sign_link(url: str) -> SignedLink:
             value.
 
     Returns:
-        SignedLink: An object that contains the signed HREF
-        in the format of a URL and the expiry time, which
-        is when the HREF will no longer permit read access.
+        str: The signed HREF
     """
     settings = Settings.get()
     account, container = parse_blob_url(url)
@@ -99,22 +98,76 @@ def sign_link(url: str) -> SignedLink:
         if not token:
             raise ValueError(f"No token found in response: {response.json()}")
         TOKEN_CACHE[token_request_url] = token
-    return token.sign(url)
+    return token.sign(url).href
 
 
-def sign_assets(item: pystac.Item) -> pystac.Item:
+@sign.register(Item)
+def _sign_item(item: Item) -> Item:
     """Sign all assets within a PySTAC item
 
     Args:
-        item (pystac.Item): The Item whose assets that will be signed
+        item (Item): The Item whose assets that will be signed
 
     Returns:
-        pystac.Item: A new copy of the Item where all assets HREFs have
+        Item: A new copy of the Item where all assets' HREFs have
         been replaced with a signed version. In addition, a "msft:expiry"
         property is added to the Item properties indicating the earliest
         expiry time for any assets that were signed.
     """
     signed_item = item.clone()
     for key in signed_item.assets:
-        signed_item.assets[key].href = sign(signed_item.assets[key].href)
+        signed_item.assets[key] = sign(signed_item.assets[key])
     return signed_item
+
+
+@sign.register(Asset)
+def _sign_asset(asset: Asset) -> Asset:
+    """Sign a PySTAC asset
+
+    Args:
+        asset (Asset): The Asset to sign
+
+    Returns:
+        Asset: A new copy of the Asset where the HREF is replaced with a
+        signed version.
+    """
+    signed_asset = asset.clone()
+    signed_asset.href = sign(signed_asset.href)
+    return signed_asset
+
+
+@sign.register(ItemCollection)
+def _sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
+    """Sign a PySTAC item collection
+
+    Args:
+        item_collection (ItemCollection): The ItemCollection whose assets will be signed
+
+    Returns:
+        ItemCollection: A new copy of the ItemCollection where all assets'
+        HREFs for each item have been replaced with a signed version. In addition,
+        a "msft:expiry" property is added to the Item properties indicating the
+        earliest expiry time for any assets that were signed.
+    """
+    return ItemCollection.from_dict(
+        {
+            "type": "FeatureCollection",
+            "features": [sign(item).to_dict() for item in item_collection],
+        }
+    )
+
+
+@sign.register(ItemSearch)
+def _search_and_sign(search: ItemSearch) -> ItemCollection:
+    """Perform a PySTAC Client search, and sign the resulting item collection
+
+    Args:
+        search (ItemSearch): The ItemSearch whose resulting item assets will be signed
+
+    Returns:
+        ItemCollection: The resulting ItemCollection of the search where all assets'
+        HREFs for each item have been replaced with a signed version. In addition,
+        a "msft:expiry" property is added to the Item properties indicating the
+        earliest expiry time for any assets that were signed.
+    """
+    return sign(search.items_as_collection())

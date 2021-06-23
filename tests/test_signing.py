@@ -1,13 +1,16 @@
 import os
 import json
+from typing import Any, Dict
 import unittest
 from urllib.parse import parse_qs, urlparse
+import warnings
 
 import requests
 
 import planetary_computer as pc
 from planetary_computer.utils import parse_blob_url
-import pystac
+from pystac import Item
+from pystac_client import ItemCollection, ItemSearch
 
 
 ACCOUNT_NAME = "naipeuwest"
@@ -23,17 +26,26 @@ SENTINEL_THUMBNAIL = (
     "/GRANULE/L2A_T10TET_A018672_20201002T192031/QI_DATA/T10TET_20201002T191229_PVI.tif"
 )
 
+PC_SEARCH_URL = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
 
-def get_sample_item() -> pystac.Item:
+
+def get_sample_item_dict() -> Dict[str, Any]:
     file_path = os.path.abspath(
         os.path.join(os.path.dirname(__file__), "data-files/sample-item.json")
     )
     with open(file_path) as json_file:
-        item_dict = json.load(json_file)
-    return pystac.Item.from_dict(item_dict)
+        return json.load(json_file)
 
 
-class TestSignAssests(unittest.TestCase):
+def get_sample_item() -> Item:
+    return Item.from_dict(get_sample_item_dict())
+
+
+def get_sample_item_collection() -> ItemCollection:
+    return ItemCollection([get_sample_item()])
+
+
+class TestSigning(unittest.TestCase):
     def assertSigned(self, url: str) -> None:
         # Ensure the signed item has an "se" URL parameter added to it,
         # which indicates it has been signed
@@ -57,17 +69,38 @@ class TestSignAssests(unittest.TestCase):
         self.assertEqual(EXP_METADATA, item.assets["metadata"].href)
         self.assertEqual(EXP_THUMBNAIL, item.assets["thumbnail"].href)
 
-    def test_signed_assets(self) -> None:
-        unsigned_item = get_sample_item()
-        signed_item = pc.sign_assets(unsigned_item)
-
-        # Ensure the original item wasn't mutated, and all URLs are signed
+    def verify_signed_urls_in_item(self, signed_item: Item) -> None:
         for key in ["image", "metadata", "thumbnail"]:
             signed_url = signed_item.assets[key].href
-            self.assertNotEqual(unsigned_item.assets[key].href, signed_url)
             self.assertSigned(signed_url)
+
+    def test_signed_assets(self) -> None:
+        signed_item = pc.sign(get_sample_item())
+        self.verify_signed_urls_in_item(signed_item)
 
     def test_read_signed_asset(self) -> None:
         signed_href = pc.sign(SENTINEL_THUMBNAIL)
         r = requests.get(signed_href)
         self.assertEqual(r.status_code, 200)
+
+    def test_signed_item_collection(self) -> None:
+        signed_item_collection = pc.sign(get_sample_item_collection())
+        self.assertEqual(len(list(signed_item_collection)), 1)
+        for signed_item in signed_item_collection:
+            self.verify_signed_urls_in_item(signed_item)
+
+    def test_search_and_sign(self) -> None:
+        # Filter out a resource warning coming from within the pystac-client search
+        warnings.simplefilter("ignore", ResourceWarning)
+
+        search = ItemSearch(
+            url=PC_SEARCH_URL,
+            bbox=(-73.21, 43.99, -73.12, 44.05),
+            collections=CONTAINER_NAME,
+            limit=1,
+            max_items=1,
+        )
+        signed_item_collection = pc.sign(search)
+        self.assertEqual(len(list(signed_item_collection)), 1)
+        for signed_item in signed_item_collection:
+            self.verify_signed_urls_in_item(signed_item)
