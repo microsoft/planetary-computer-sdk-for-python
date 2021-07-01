@@ -45,8 +45,8 @@ pip install -e .
 This library currently assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. In addition, the `sign` function accepts a [STAC API Client](https://github.com/stac-utils/pystac-client) `ItemSearch`, which performs a search and returns the resulting `ItemCollection` with all assets signed. The following example demonstrates these use cases:
 
 ```python
-from pystac import Asset, Item
-from pystac_client import ItemCollection, ItemSearch
+from pystac import Asset, Item, ItemCollection
+from pystac_client import ItemSearch
 import planetary_computer as pc
 
 

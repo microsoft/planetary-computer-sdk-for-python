@@ -4,9 +4,9 @@ from typing import Any, Dict
 from functools import singledispatch
 import requests
 from pydantic import BaseModel, Field
-from pystac import Asset, Item
+from pystac import Asset, Item, ItemCollection
 from pystac.utils import datetime_to_str
-from pystac_client import ItemCollection, ItemSearch
+from pystac_client import ItemSearch
 
 from planetary_computer.settings import Settings
 from planetary_computer.utils import parse_blob_url
@@ -170,4 +170,4 @@ def _search_and_sign(search: ItemSearch) -> ItemCollection:
         a "msft:expiry" property is added to the Item properties indicating the
         earliest expiry time for any assets that were signed.
     """
-    return sign(search.items_as_collection())
+    return sign(search.get_all_items())
