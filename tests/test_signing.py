@@ -9,8 +9,8 @@ import requests
 
 import planetary_computer as pc
 from planetary_computer.utils import parse_blob_url
-from pystac import Item
-from pystac_client import ItemCollection, ItemSearch
+from pystac import Item, ItemCollection
+from pystac_client import ItemSearch
 
 
 ACCOUNT_NAME = "naipeuwest"

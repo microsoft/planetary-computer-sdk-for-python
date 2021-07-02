@@ -93,34 +93,7 @@
             ]
         }
     },
-    "links":[
-        {
-            "href":"https://sample-self-json",
-            "rel":"self",
-            "type":"application/geo+json"
-        },
-        {
-            "href":"https://sample-parent-json",
-            "rel":"parent",
-            "type":"application/json"
-        },
-        {
-            "href":"https://sample-collection-json",
-            "rel":"collection",
-            "type":"application/json"
-        },
-        {
-            "href":"https://sample-root-json",
-            "rel":"root",
-            "type":"application/json"
-        },
-        {
-            "href":"https://sample-alternate-json",
-            "rel":"alternate",
-            "type":"application/json",
-            "title":"tiles"
-        }
-    ],
+    "links": [],
     "stac_extensions":[
         "eo",
         "projection"
