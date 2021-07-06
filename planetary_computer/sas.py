@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict
 
 from functools import singledispatch
+from urllib.parse import urlparse
 import requests
 from pydantic import BaseModel, Field
 from pystac import Asset, Item, ItemCollection
@@ -10,6 +11,9 @@ from pystac_client import ItemSearch
 
 from planetary_computer.settings import Settings
 from planetary_computer.utils import parse_blob_url
+
+
+BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"
 
 
 class SASBase(BaseModel):
@@ -73,14 +77,19 @@ def _sign_url(url: str) -> str:
 
     Args:
         url (str): The HREF of the asset in the format of a URL.
-            This can be found on STAC Item's Asset 'href'
-            value.
+            This can be found on STAC Item's Asset 'href' value. Only URLs to assets
+            in Azure Blob Storage are signed, other URLs are returned unmodified.
 
     Returns:
         str: The signed HREF
     """
     settings = Settings.get()
-    account, container = parse_blob_url(url)
+    parsed_url = urlparse(url.rstrip("/"))
+    if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
+        return url
+
+    account, container = parse_blob_url(parsed_url)
+
     token_request_url = f"{settings.sas_url}/{account}/{container}"
     token = TOKEN_CACHE.get(token_request_url)
 

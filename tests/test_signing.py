@@ -54,7 +54,7 @@ class TestSigning(unittest.TestCase):
         self.assertIsNotNone(query_params["se"])
 
     def test_parse_blob_url(self) -> None:
-        account, container = parse_blob_url(EXP_IMAGE)
+        account, container = parse_blob_url(urlparse(EXP_IMAGE))
         self.assertEqual(ACCOUNT_NAME, account)
         self.assertEqual(CONTAINER_NAME, container)
 

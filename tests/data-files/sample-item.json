@@ -51,7 +51,7 @@
         -85.625,
         31.0
     ],
-    "stac_version":"1.0.0-beta.2",
+    "stac_version":"1.0.0",
     "assets":{
         "image":{
             "title":"RGBIR COG tile",
@@ -91,6 +91,18 @@
             "roles":[
                 "thumbnail"
             ]
+        },
+        "tilejson": {
+            "title": "TileJSON with default rendering",
+            "href": "https://planetarycomputer-staging.microsoft.com/api/data/v1/item/tilejson.json?collection=naip&items=fl_m_2608005_nw_17_060_20191215_20200113&assets=image&bidx=1,2,3",
+            "type": "application/json",
+            "roles": ["tiles"]
+        },
+        "hero": {
+            "title": "STAC logo, not in a storage account",
+            "href": "https://raw.githubusercontent.com/radiantearth/stac-site/master/images/logo/stac-030-long.png",
+            "type": "image/png",
+            "roles": ["logo"]
         }
     },
     "links": [],
