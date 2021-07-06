@@ -19,6 +19,8 @@ def parse_blob_url(parsed_url: ParseResult) -> Tuple[str, str]:
         path_blob = parsed_url.path.lstrip("/").split("/", 1)
         container_name = path_blob[-2]
     except Exception as failed_parse:
-        raise ValueError(f"Invalid blob URL: {urlunparse(parsed_url)}") from failed_parse
+        raise ValueError(
+            f"Invalid blob URL: {urlunparse(parsed_url)}"
+        ) from failed_parse
 
     return account_name, container_name
