@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from typing import Any, Dict
+import warnings
 
 from functools import singledispatch
 from urllib.parse import urlparse
@@ -72,7 +73,7 @@ def sign(obj: Any) -> Any:
 
 
 @sign.register(str)
-def _sign_url(url: str) -> str:
+def sign_url(url: str) -> str:
     """Sign a URL with a Shared Access (SAS) Token, which allows for read access.
 
     Args:
@@ -111,7 +112,7 @@ def _sign_url(url: str) -> str:
 
 
 @sign.register(Item)
-def _sign_item(item: Item) -> Item:
+def sign_item(item: Item) -> Item:
     """Sign all assets within a PySTAC item
 
     Args:
@@ -130,7 +131,7 @@ def _sign_item(item: Item) -> Item:
 
 
 @sign.register(Asset)
-def _sign_asset(asset: Asset) -> Asset:
+def sign_asset(asset: Asset) -> Asset:
     """Sign a PySTAC asset
 
     Args:
@@ -145,8 +146,14 @@ def _sign_asset(asset: Asset) -> Asset:
     return signed_asset
 
 
+def sign_assets(item):
+    warnings.warn("'sign_assets' is deprecated and will be removed in a future version. Use 'sign_item' instead.", FutureWarning, stacklevel=2)
+    return sign_item(item)
+
+
+
 @sign.register(ItemCollection)
-def _sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
+def sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
     """Sign a PySTAC item collection
 
     Args:
