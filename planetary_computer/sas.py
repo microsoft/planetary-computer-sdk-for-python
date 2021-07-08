@@ -147,9 +147,12 @@ def sign_asset(asset: Asset) -> Asset:
 
 
 def sign_assets(item):
-    warnings.warn("'sign_assets' is deprecated and will be removed in a future version. Use 'sign_item' instead.", FutureWarning, stacklevel=2)
+    warnings.warn(
+        "'sign_assets' is deprecated and will be removed in a future version. Use 'sign_item' instead.",
+        FutureWarning,
+        stacklevel=2,
+    )
     return sign_item(item)
-
 
 
 @sign.register(ItemCollection)

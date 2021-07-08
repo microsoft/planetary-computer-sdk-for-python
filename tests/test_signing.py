@@ -110,9 +110,15 @@ class TestSigning(unittest.TestCase):
         with self.assertWarns(FutureWarning):
             pc.sign_assets(item)
 
-    def test_public_api(self):
+    def test_public_api(self) -> None:
         item = get_sample_item()
 
         self.assertEqual(type(pc.sign(item)), type(pc.sign_item(item)))
-        self.assertEqual(type(pc.sign(item.assets["image"])), type(pc.sign_asset(item.assets["image"])))
-        self.assertEqual(type(pc.sign(item.assets["image"].href)), type(pc.sign_url(item.assets["image"].href)))
+        self.assertEqual(
+            type(pc.sign(item.assets["image"])),
+            type(pc.sign_asset(item.assets["image"])),
+        )
+        self.assertEqual(
+            type(pc.sign(item.assets["image"].href)),
+            type(pc.sign_url(item.assets["image"].href)),
+        )
