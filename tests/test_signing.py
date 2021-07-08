@@ -104,3 +104,21 @@ class TestSigning(unittest.TestCase):
         self.assertEqual(len(list(signed_item_collection)), 1)
         for signed_item in signed_item_collection:
             self.verify_signed_urls_in_item(signed_item)
+
+    def test_sign_assets_deprecated(self) -> None:
+        item = get_sample_item()
+        with self.assertWarns(FutureWarning):
+            pc.sign_assets(item)
+
+    def test_public_api(self) -> None:
+        item = get_sample_item()
+
+        self.assertEqual(type(pc.sign(item)), type(pc.sign_item(item)))
+        self.assertEqual(
+            type(pc.sign(item.assets["image"])),
+            type(pc.sign_asset(item.assets["image"])),
+        )
+        self.assertEqual(
+            type(pc.sign(item.assets["image"].href)),
+            type(pc.sign_url(item.assets["image"].href)),
+        )
