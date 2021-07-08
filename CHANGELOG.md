@@ -8,3 +8,7 @@
 ## Deprecations
 
 * `sign_assets` is deprecated. Use `sign_item` instead.
+
+## Bug Fixes
+
+* `sign_item` now handles items with assets containing links to files outside of blob storage by returning the asset unchanged. 
