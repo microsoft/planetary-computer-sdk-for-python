@@ -146,7 +146,7 @@ def sign_asset(asset: Asset) -> Asset:
     return signed_asset
 
 
-def sign_assets(item):
+def sign_assets(item: Item) -> Item:
     warnings.warn(
         "'sign_assets' is deprecated and will be removed in a future version. Use 'sign_item' instead.",
         FutureWarning,
