@@ -8,8 +8,8 @@ import warnings
 import requests
 
 import planetary_computer as pc
-from planetary_computer.utils import parse_blob_url
-from pystac import Item, ItemCollection
+from planetary_computer.utils import parse_blob_url, is_fsspec_asset, parse_adlfs_url
+from pystac import Asset, Item, ItemCollection
 from pystac_client import ItemSearch
 
 
@@ -122,3 +122,33 @@ class TestSigning(unittest.TestCase):
             type(pc.sign(item.assets["image"].href)),
             type(pc.sign_url(item.assets["image"].href)),
         )
+
+
+class TestUtils(unittest.TestCase):
+    def test_parse_adlfs_url(self):
+        result = parse_adlfs_url("abfs://my-container/my/path.ext")
+        self.assertEqual(result, "my-container")
+
+        result = parse_adlfs_url("az://my-container/my/path.ext")
+        self.assertEqual(result, "my-container")
+
+        result = parse_adlfs_url("s3://my-container/my/path.ext")
+        self.assertIsNone(result)
+
+        result = parse_adlfs_url("https://planetarycomputer.microsoft.com")
+        self.assertIsNone(result)
+
+    def test_is_fsspec_url(self):
+        asset = Asset(
+            "adlfs://my-container/my/path.ext",
+            properties={"table:storage_options": {"account_name": "foo"}},
+        )
+        self.assertTrue(is_fsspec_asset(asset))
+
+        asset = Asset(
+            "adlfs://my-container/my/path.ext", properties={"table:storage_options": {}}
+        )
+        self.assertFalse(is_fsspec_asset(asset))
+
+        asset = Asset("adlfs://my-container/my/path.ext")
+        self.assertFalse(is_fsspec_asset(asset))
