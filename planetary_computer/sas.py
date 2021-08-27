@@ -126,11 +126,13 @@ def sign_asset(asset: Asset) -> Asset:
     signed_asset = asset.clone()
     signed_asset.href = sign(signed_asset.href)
     if is_fsspec_asset(asset):
-        account = signed_asset.properties["table:storage_options"]["account_name"]
+        account = signed_asset.extra_fields["table:storage_options"]["account_name"]
         container = parse_adlfs_url(asset.href)
         if container:
             token = _get_token(account, container)
-            signed_asset.properties["table:storage_options"]["credential"] = token.token
+            signed_asset.extra_fields["table:storage_options"][
+                "credential"
+            ] = token.token
     return signed_asset
 
 

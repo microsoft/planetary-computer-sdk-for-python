@@ -125,7 +125,7 @@ class TestSigning(unittest.TestCase):
 
 
 class TestUtils(unittest.TestCase):
-    def test_parse_adlfs_url(self):
+    def test_parse_adlfs_url(self) -> None:
         result = parse_adlfs_url("abfs://my-container/my/path.ext")
         self.assertEqual(result, "my-container")
 
@@ -138,15 +138,16 @@ class TestUtils(unittest.TestCase):
         result = parse_adlfs_url("https://planetarycomputer.microsoft.com")
         self.assertIsNone(result)
 
-    def test_is_fsspec_url(self):
+    def test_is_fsspec_url(self) -> None:
         asset = Asset(
             "adlfs://my-container/my/path.ext",
-            properties={"table:storage_options": {"account_name": "foo"}},
+            extra_fields={"table:storage_options": {"account_name": "foo"}},
         )
         self.assertTrue(is_fsspec_asset(asset))
 
         asset = Asset(
-            "adlfs://my-container/my/path.ext", properties={"table:storage_options": {}}
+            "adlfs://my-container/my/path.ext",
+            extra_fields={"table:storage_options": {}},
         )
         self.assertFalse(is_fsspec_asset(asset))
 
