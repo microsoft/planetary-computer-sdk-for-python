@@ -51,6 +51,7 @@ def is_fsspec_asset(asset: pystac.Asset) -> bool:
     """
     Determine if an Asset points to an fsspec URL.
 
-    This checks if "account_name" is present in the asset's "table:storage_options" field.
+    This checks if "account_name" is present in the asset's "table:storage_options"
+    field.
     """
     return "account_name" in asset.extra_fields.get("table:storage_options", {})
