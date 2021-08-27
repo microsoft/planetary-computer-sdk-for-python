@@ -89,7 +89,7 @@ def sign_url(url: str) -> str:
         return url
 
     account, container = parse_blob_url(parsed_url)
-    token = _get_token(account, container)
+    token = get_token(account, container)
     return token.sign(url).href
 
 
@@ -129,7 +129,7 @@ def sign_asset(asset: Asset) -> Asset:
         account = signed_asset.extra_fields["table:storage_options"]["account_name"]
         container = parse_adlfs_url(asset.href)
         if container:
-            token = _get_token(account, container)
+            token = get_token(account, container)
             signed_asset.extra_fields["table:storage_options"][
                 "credential"
             ] = token.token
@@ -183,7 +183,7 @@ def _search_and_sign(search: ItemSearch) -> ItemCollection:
     return sign(search.get_all_items())
 
 
-def _get_token(account: str, container: str) -> SASToken:
+def get_token(account_name: str, container_name: str) -> SASToken:
     """
     Get a token for a container in a storage account.
 
@@ -191,13 +191,13 @@ def _get_token(account: str, container: str) -> SASToken:
     to expiring. The generated token will be placed in the token cache.
 
     Args:
-        account (str): The storage account name.
-        container (str): The storage container name.
+        account_name (str): The storage account name.
+        container_name (str): The storage container name.
     Returns:
-        SasToken: the generated token
+        SASToken: the generated token
     """
     settings = Settings.get()
-    token_request_url = f"{settings.sas_url}/{account}/{container}"
+    token_request_url = f"{settings.sas_url}/{account_name}/{container_name}"
     token = TOKEN_CACHE.get(token_request_url)
 
     # Refresh the token if there's less than a minute remaining,
