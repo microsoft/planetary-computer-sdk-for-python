@@ -8,13 +8,17 @@ import warnings
 import requests
 
 import planetary_computer as pc
-from planetary_computer.utils import parse_blob_url
-from pystac import Item, ItemCollection
+from planetary_computer.utils import parse_blob_url, is_fsspec_asset, parse_adlfs_url
+from planetary_computer.sas import get_token, TOKEN_CACHE
+from pystac import Asset, Item, ItemCollection
 from pystac_client import ItemSearch
 
 
 ACCOUNT_NAME = "naipeuwest"
 CONTAINER_NAME = "naip"
+TOKEN_REQUEST_URL = (
+    "https://planetarycomputer.microsoft.com/api/sas/v1/token/naipeuwest/naip"
+)
 
 EXP_IMAGE = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.tif"
 EXP_METADATA = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{CONTAINER_NAME}/01.txt"
@@ -122,3 +126,43 @@ class TestSigning(unittest.TestCase):
             type(pc.sign(item.assets["image"].href)),
             type(pc.sign_url(item.assets["image"].href)),
         )
+
+    def test_get_token(self) -> None:
+        result = get_token(account_name=ACCOUNT_NAME, container_name=CONTAINER_NAME)
+        self.assertIn(TOKEN_REQUEST_URL, TOKEN_CACHE)
+        self.assertIsInstance(result.token, str)
+        self.assertEqual(result.token, TOKEN_CACHE[TOKEN_REQUEST_URL].token)
+
+        result2 = get_token(account_name=ACCOUNT_NAME, container_name=CONTAINER_NAME)
+        self.assertIs(result, result2)
+
+
+class TestUtils(unittest.TestCase):
+    def test_parse_adlfs_url(self) -> None:
+        result = parse_adlfs_url("abfs://my-container/my/path.ext")
+        self.assertEqual(result, "my-container")
+
+        result = parse_adlfs_url("az://my-container/my/path.ext")
+        self.assertEqual(result, "my-container")
+
+        result = parse_adlfs_url("s3://my-container/my/path.ext")
+        self.assertIsNone(result)
+
+        result = parse_adlfs_url("https://planetarycomputer.microsoft.com")
+        self.assertIsNone(result)
+
+    def test_is_fsspec_url(self) -> None:
+        asset = Asset(
+            "adlfs://my-container/my/path.ext",
+            extra_fields={"table:storage_options": {"account_name": "foo"}},
+        )
+        self.assertTrue(is_fsspec_asset(asset))
+
+        asset = Asset(
+            "adlfs://my-container/my/path.ext",
+            extra_fields={"table:storage_options": {}},
+        )
+        self.assertFalse(is_fsspec_asset(asset))
+
+        asset = Asset("adlfs://my-container/my/path.ext")
+        self.assertFalse(is_fsspec_asset(asset))

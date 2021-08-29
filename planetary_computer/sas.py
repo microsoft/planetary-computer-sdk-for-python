@@ -11,7 +11,7 @@ from pystac.utils import datetime_to_str
 from pystac_client import ItemSearch
 
 from planetary_computer.settings import Settings
-from planetary_computer.utils import parse_blob_url
+from planetary_computer.utils import parse_blob_url, parse_adlfs_url, is_fsspec_asset
 
 
 BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"
@@ -84,30 +84,12 @@ def sign_url(url: str) -> str:
     Returns:
         str: The signed HREF
     """
-    settings = Settings.get()
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
         return url
 
     account, container = parse_blob_url(parsed_url)
-
-    token_request_url = f"{settings.sas_url}/{account}/{container}"
-    token = TOKEN_CACHE.get(token_request_url)
-
-    # Refresh the token if there's less than a minute remaining,
-    # in order to give a small amount of buffer
-    if not token or token.ttl() < 60:
-        headers = (
-            {"Ocp-Apim-Subscription-Key": settings.subscription_key}
-            if settings.subscription_key
-            else None
-        )
-        response = requests.get(token_request_url, headers=headers)
-        response.raise_for_status()
-        token = SASToken(**response.json())
-        if not token:
-            raise ValueError(f"No token found in response: {response.json()}")
-        TOKEN_CACHE[token_request_url] = token
+    token = get_token(account, container)
     return token.sign(url).href
 
 
@@ -143,6 +125,14 @@ def sign_asset(asset: Asset) -> Asset:
     """
     signed_asset = asset.clone()
     signed_asset.href = sign(signed_asset.href)
+    if is_fsspec_asset(asset):
+        account = signed_asset.extra_fields["table:storage_options"]["account_name"]
+        container = parse_adlfs_url(asset.href)
+        if container:
+            token = get_token(account, container)
+            signed_asset.extra_fields["table:storage_options"][
+                "credential"
+            ] = token.token
     return signed_asset
 
 
@@ -191,3 +181,37 @@ def _search_and_sign(search: ItemSearch) -> ItemCollection:
         earliest expiry time for any assets that were signed.
     """
     return sign(search.get_all_items())
+
+
+def get_token(account_name: str, container_name: str) -> SASToken:
+    """
+    Get a token for a container in a storage account.
+
+    This will use a token from the cache if it's present and not too close
+    to expiring. The generated token will be placed in the token cache.
+
+    Args:
+        account_name (str): The storage account name.
+        container_name (str): The storage container name.
+    Returns:
+        SASToken: the generated token
+    """
+    settings = Settings.get()
+    token_request_url = f"{settings.sas_url}/{account_name}/{container_name}"
+    token = TOKEN_CACHE.get(token_request_url)
+
+    # Refresh the token if there's less than a minute remaining,
+    # in order to give a small amount of buffer
+    if not token or token.ttl() < 60:
+        headers = (
+            {"Ocp-Apim-Subscription-Key": settings.subscription_key}
+            if settings.subscription_key
+            else None
+        )
+        response = requests.get(token_request_url, headers=headers)
+        response.raise_for_status()
+        token = SASToken(**response.json())
+        if not token:
+            raise ValueError(f"No token found in response: {response.json()}")
+        TOKEN_CACHE[token_request_url] = token
+    return token
