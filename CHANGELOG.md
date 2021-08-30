@@ -1,3 +1,9 @@
+# 0.4.0
+
+## New Features
+
+* `sign` will now sign assets whose URLs are registered with [adlfs] and implement `table:storage_options` from the [table] extension.
+
 # 0.3.0
 
 ## New Features
@@ -12,3 +18,6 @@
 ## Bug Fixes
 
 * `sign_item` now handles items with assets containing links to files outside of blob storage by returning the asset unchanged. 
+
+[adlfs]: https://github.com/dask/adlfs
+[table]: https://github.com/stac-extensions/table
