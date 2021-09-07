@@ -108,7 +108,7 @@ def sign_item(item: Item) -> Item:
     """
     signed_item = item.clone()
     for key in signed_item.assets:
-        signed_item.assets[key] = sign(signed_item.assets[key])
+        _sign_asset_in_place(signed_item.assets[key])
     return signed_item
 
 
@@ -123,17 +123,27 @@ def sign_asset(asset: Asset) -> Asset:
         Asset: A new copy of the Asset where the HREF is replaced with a
         signed version.
     """
-    signed_asset = asset.clone()
-    signed_asset.href = sign(signed_asset.href)
+    return _sign_asset_in_place(asset.clone())
+
+
+def _sign_asset_in_place(asset: Asset) -> Asset:
+    """Sign a PySTAC asset
+
+    Args:
+        asset (Asset): The Asset to sign in place
+
+    Returns:
+        Asset: Input Asset object modified in place: the HREF is replaced
+        with a signed version.
+    """
+    asset.href = sign(asset.href)
     if is_fsspec_asset(asset):
-        account = signed_asset.extra_fields["table:storage_options"]["account_name"]
+        account = asset.extra_fields["table:storage_options"]["account_name"]
         container = parse_adlfs_url(asset.href)
         if container:
             token = get_token(account, container)
-            signed_asset.extra_fields["table:storage_options"][
-                "credential"
-            ] = token.token
-    return signed_asset
+            asset.extra_fields["table:storage_options"]["credential"] = token.token
+    return asset
 
 
 def sign_assets(item: Item) -> Item:

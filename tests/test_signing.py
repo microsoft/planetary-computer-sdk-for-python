@@ -78,9 +78,14 @@ class TestSigning(unittest.TestCase):
             signed_url = signed_item.assets[key].href
             self.assertSigned(signed_url)
 
+    def verify_asset_owner(self, signed_item: Item) -> None:
+        for asset in signed_item.assets.values():
+            self.assertIs(asset.owner, signed_item)
+
     def test_signed_assets(self) -> None:
         signed_item = pc.sign(get_sample_item())
         self.verify_signed_urls_in_item(signed_item)
+        self.verify_asset_owner(signed_item)
 
     def test_read_signed_asset(self) -> None:
         signed_href = pc.sign(SENTINEL_THUMBNAIL)
