@@ -1,3 +1,9 @@
+# 0.4.1
+
+## Bug Fixes
+
+* Fixed bug in `planetary_computer.sign(item)` returning items whose assets had no owner. [#25][gh-25]
+
 # 0.4.0
 
 ## New Features
@@ -21,3 +27,4 @@
 
 [adlfs]: https://github.com/dask/adlfs
 [table]: https://github.com/stac-extensions/table
+[gh-25]: https://github.com/microsoft/planetary-computer-sdk-for-python/issues/25
