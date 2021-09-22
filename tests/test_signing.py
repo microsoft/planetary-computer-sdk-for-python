@@ -34,6 +34,7 @@ SENTINEL_THUMBNAIL = (
 PC_SEARCH_URL = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
 HERE = Path(__file__).parent
 
+
 def get_sample_item_dict() -> Dict[str, Any]:
     file_path = HERE.joinpath("data-files/sample-item.json").absolute()
     with open(file_path) as json_file:
@@ -150,15 +151,20 @@ class TestSigning(unittest.TestCase):
         result2 = get_token(account_name=ACCOUNT_NAME, container_name=CONTAINER_NAME)
         self.assertIs(result, result2)
 
-    def test_sign_zarr_item(self):
+    def test_sign_zarr_item(self) -> None:
         item = get_sample_zarr_item()
         result = pc.sign(item)
-        self.assertIn("credential", result.assets["zarr-abfs"].extra_fields["xarray:storage_options"])
+        self.assertIn(
+            "credential",
+            result.assets["zarr-abfs"].extra_fields["xarray:storage_options"],
+        )
 
-    def test_sign_tabular_item(self):
+    def test_sign_tabular_item(self) -> None:
         item = get_sample_tabular_item()
         result = pc.sign(item)
-        self.assertIn("credential", result.assets["data"].extra_fields["table:storage_options"])
+        self.assertIn(
+            "credential", result.assets["data"].extra_fields["table:storage_options"]
+        )
 
 
 class TestUtils(unittest.TestCase):
