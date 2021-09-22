@@ -1,3 +1,10 @@
+# 0.4.2
+
+## New Features
+
+* `sign` will now sign assets whose URLs are registered with [adlfs] and implement `xarray:storage_options` from the [xarray-assets] extension.
+
+
 # 0.4.1
 
 ## Bug Fixes
@@ -28,3 +35,4 @@
 [adlfs]: https://github.com/dask/adlfs
 [table]: https://github.com/stac-extensions/table
 [gh-25]: https://github.com/microsoft/planetary-computer-sdk-for-python/issues/25
+[xarray-assets]: https://github.com/stac-extensions/xarray-assets
