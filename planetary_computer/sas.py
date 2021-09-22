@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import warnings
 
 from functools import singledispatch
@@ -138,6 +138,8 @@ def _sign_asset_in_place(asset: Asset) -> Asset:
     """
     asset.href = sign(asset.href)
     if is_fsspec_asset(asset):
+        key: Optional[str]
+
         for key in ["table:storage_options", "xarray:storage_options"]:
             if key in asset.extra_fields:
                 break
