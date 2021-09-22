@@ -3,6 +3,7 @@ import json
 from typing import Any, Dict
 import unittest
 from urllib.parse import parse_qs, urlparse
+from pathlib import Path
 import warnings
 
 import requests
@@ -31,18 +32,27 @@ SENTINEL_THUMBNAIL = (
 )
 
 PC_SEARCH_URL = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
+HERE = Path(__file__).parent
 
 
 def get_sample_item_dict() -> Dict[str, Any]:
-    file_path = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "data-files/sample-item.json")
-    )
+    file_path = HERE.joinpath("data-files/sample-item.json").absolute()
     with open(file_path) as json_file:
         return json.load(json_file)
 
 
 def get_sample_item() -> Item:
     return Item.from_dict(get_sample_item_dict())
+
+
+def get_sample_zarr_item() -> Item:
+    file_path = os.fspath(HERE.joinpath("data-files/sample-zarr-item.json"))
+    return Item.from_file(file_path)
+
+
+def get_sample_tabular_item() -> Item:
+    file_path = os.fspath(HERE.joinpath("data-files/sample-tabular-item.json"))
+    return Item.from_file(file_path)
 
 
 def get_sample_item_collection() -> ItemCollection:
@@ -141,6 +151,21 @@ class TestSigning(unittest.TestCase):
         result2 = get_token(account_name=ACCOUNT_NAME, container_name=CONTAINER_NAME)
         self.assertIs(result, result2)
 
+    def test_sign_zarr_item(self) -> None:
+        item = get_sample_zarr_item()
+        result = pc.sign(item)
+        self.assertIn(
+            "credential",
+            result.assets["zarr-abfs"].extra_fields["xarray:storage_options"],
+        )
+
+    def test_sign_tabular_item(self) -> None:
+        item = get_sample_tabular_item()
+        result = pc.sign(item)
+        self.assertIn(
+            "credential", result.assets["data"].extra_fields["table:storage_options"]
+        )
+
 
 class TestUtils(unittest.TestCase):
     def test_parse_adlfs_url(self) -> None:
@@ -166,6 +191,21 @@ class TestUtils(unittest.TestCase):
         asset = Asset(
             "adlfs://my-container/my/path.ext",
             extra_fields={"table:storage_options": {}},
+        )
+        self.assertFalse(is_fsspec_asset(asset))
+
+        asset = Asset("adlfs://my-container/my/path.ext")
+        self.assertFalse(is_fsspec_asset(asset))
+
+        asset = Asset(
+            "adlfs://my-container/my/path.ext",
+            extra_fields={"xarray:storage_options": {"account_name": "foo"}},
+        )
+        self.assertTrue(is_fsspec_asset(asset))
+
+        asset = Asset(
+            "adlfs://my-container/my/path.ext",
+            extra_fields={"xarray:storage_options": {}},
         )
         self.assertFalse(is_fsspec_asset(asset))
 

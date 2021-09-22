@@ -1,0 +1,49 @@
+{
+    "type": "Feature",
+    "stac_version": "1.0.0",
+    "id": "plot",
+    "properties": {
+        "table:columns": [
+            {
+                "name": "CN",
+                "type": "int64",
+                "description": "Sequence number"
+            },
+            {
+                "name": "SRV_CN",
+                "type": "int64",
+                "description": "Survey sequence number"
+            },
+            {
+                "name": "CTY_CN",
+                "type": "int64",
+                "description": "County sequence number"
+            }
+        ],
+        "datetime": "2020-06-01T00:00:00Z"
+    },
+    "geometry": null,
+    "links": [],
+    "assets": {
+        "data": {
+            "href": "abfs://cpdata/raw/fia/plot.parquet",
+            "type": "application/x-parquet",
+            "title": "Dataset root",
+            "table:storage_options": {
+                "account_name": "cpdataeuwest"
+            },
+            "roles": [
+                "data"
+            ]
+        }
+    },
+    "bbox": [
+        -179.14734,
+        -14.53,
+        179.77847,
+        71.352561
+    ],
+    "stac_extensions": [
+        "https://stac-extensions.github.io/table/v1.0.0/schema.json"
+    ]
+}
