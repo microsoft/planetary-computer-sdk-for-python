@@ -179,12 +179,11 @@ def sign_item_collection(item_collection: ItemCollection) -> ItemCollection:
         a "msft:expiry" property is added to the Item properties indicating the
         earliest expiry time for any assets that were signed.
     """
-    return ItemCollection.from_dict(
-        {
-            "type": "FeatureCollection",
-            "features": [sign(item).to_dict() for item in item_collection],
-        }
-    )
+    new = item_collection.clone()
+    for item in new:
+        for key in item.assets:
+            _sign_asset_in_place(item.assets[key])
+    return new
 
 
 @sign.register(ItemSearch)
