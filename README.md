@@ -2,6 +2,8 @@
 
 Python library for interacting with the Microsoft Planetary Computer.
 
+For general questions or discussions about the Planetary Computer, use the [microsoft/PlanetaryComputer](http://github.com/microsoft/PlanetaryComputer) repository.
+
 ## Installation
 
 ```python
