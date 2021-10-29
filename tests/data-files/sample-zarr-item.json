@@ -588,7 +588,13 @@
             ]
         ]
     },
-    "links": [],
+    "links": [
+        {
+            "rel": "root",
+            "href": "./catalog.json",
+            "type": "application/json"
+        }
+    ],
     "assets": {
         "zarr-https": {
             "href": "https://ai4edataeuwest.blob.core.windows.net/gridmet/gridmet.zarr",

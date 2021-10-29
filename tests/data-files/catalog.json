@@ -1,0 +1,29 @@
+{
+  "type": "Catalog",
+  "id": "microsoft-pc-demo",
+  "stac_version": "1.0.0",
+  "description": "Microsoft Planetary Computer STAC API",
+  "links": [
+    {
+      "rel": "root",
+      "href": "./catalog.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./sample-item.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./sample-tabular-item.json",
+      "type": "application/json"
+    },
+    {
+      "rel": "item",
+      "href": "./sample-zarr-item.json",
+      "type": "application/json"
+    }
+  ],
+  "stac_extensions": []
+}

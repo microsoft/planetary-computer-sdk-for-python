@@ -23,7 +23,13 @@
         "datetime": "2020-06-01T00:00:00Z"
     },
     "geometry": null,
-    "links": [],
+    "links": [
+        {
+            "rel": "root",
+            "href": "./catalog.json",
+            "type": "application/json"
+        }
+    ],
     "assets": {
         "data": {
             "href": "abfs://cpdata/raw/fia/plot.parquet",

@@ -1,6 +1,4 @@
 import os
-import json
-from typing import Any, Dict
 import unittest
 from urllib.parse import parse_qs, urlparse
 from pathlib import Path
@@ -35,24 +33,24 @@ PC_SEARCH_URL = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
 HERE = Path(__file__).parent
 
 
-def get_sample_item_dict() -> Dict[str, Any]:
-    file_path = HERE.joinpath("data-files/sample-item.json").absolute()
-    with open(file_path) as json_file:
-        return json.load(json_file)
+def resolve(item: Item) -> Item:
+    item.resolve_links()
+    return item
 
 
 def get_sample_item() -> Item:
-    return Item.from_dict(get_sample_item_dict())
+    file_path = os.fspath(HERE.joinpath("data-files/sample-item.json"))
+    return resolve(Item.from_file(file_path))
 
 
 def get_sample_zarr_item() -> Item:
     file_path = os.fspath(HERE.joinpath("data-files/sample-zarr-item.json"))
-    return Item.from_file(file_path)
+    return resolve(Item.from_file(file_path))
 
 
 def get_sample_tabular_item() -> Item:
     file_path = os.fspath(HERE.joinpath("data-files/sample-tabular-item.json"))
-    return Item.from_file(file_path)
+    return resolve(Item.from_file(file_path))
 
 
 def get_sample_item_collection() -> ItemCollection:
@@ -60,6 +58,12 @@ def get_sample_item_collection() -> ItemCollection:
 
 
 class TestSigning(unittest.TestCase):
+    def assertRootResolved(self, item: Item) -> None:
+        root_link = item.get_root_link()
+        self.assertIsNotNone(root_link)
+        assert root_link  # for type checker
+        self.assertTrue(root_link.is_resolved())
+
     def assertSigned(self, url: str) -> None:
         # Ensure the signed item has an "se" URL parameter added to it,
         # which indicates it has been signed
@@ -96,6 +100,7 @@ class TestSigning(unittest.TestCase):
         signed_item = pc.sign(get_sample_item())
         self.verify_signed_urls_in_item(signed_item)
         self.verify_asset_owner(signed_item)
+        self.assertRootResolved(signed_item)
 
     def test_read_signed_asset(self) -> None:
         signed_href = pc.sign(SENTINEL_THUMBNAIL)
@@ -107,6 +112,7 @@ class TestSigning(unittest.TestCase):
         self.assertEqual(len(list(signed_item_collection)), 1)
         for signed_item in signed_item_collection:
             self.verify_signed_urls_in_item(signed_item)
+            self.assertRootResolved(signed_item)
 
     def test_search_and_sign(self) -> None:
         # Filter out a resource warning coming from within the pystac-client search
@@ -158,6 +164,7 @@ class TestSigning(unittest.TestCase):
             "credential",
             result.assets["zarr-abfs"].extra_fields["xarray:storage_options"],
         )
+        self.assertRootResolved(item)
 
     def test_sign_tabular_item(self) -> None:
         item = get_sample_tabular_item()
@@ -165,6 +172,7 @@ class TestSigning(unittest.TestCase):
         self.assertIn(
             "credential", result.assets["data"].extra_fields["table:storage_options"]
         )
+        self.assertRootResolved(item)
 
 
 class TestUtils(unittest.TestCase):
