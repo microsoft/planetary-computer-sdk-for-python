@@ -1,3 +1,9 @@
+# 0.4.3
+
+## Bug Fixes
+
+* Improved performance when using signed ItemCollections by not dropping the root link [#30][gh-30]
+
 # 0.4.2
 
 ## New Features
@@ -35,4 +41,5 @@
 [adlfs]: https://github.com/dask/adlfs
 [table]: https://github.com/stac-extensions/table
 [gh-25]: https://github.com/microsoft/planetary-computer-sdk-for-python/issues/25
+[gh-30]: https://github.com/microsoft/planetary-computer-sdk-for-python/pull/30
 [xarray-assets]: https://github.com/stac-extensions/xarray-assets
