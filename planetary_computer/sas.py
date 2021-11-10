@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 import warnings
@@ -11,7 +12,13 @@ from pystac.utils import datetime_to_str
 from pystac_client import ItemSearch
 
 from planetary_computer.settings import Settings
-from planetary_computer.utils import parse_blob_url, parse_adlfs_url, is_fsspec_asset
+from planetary_computer.utils import (
+    parse_blob_url,
+    parse_adlfs_url,
+    is_fsspec_asset,
+    is_vrt_string,
+    asset_xpr,
+)
 
 
 BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"
@@ -73,7 +80,7 @@ def sign(obj: Any) -> Any:
 
 
 @sign.register(str)
-def sign_url(url: str) -> str:
+def sign_string(url: str) -> str:
     """Sign a URL with a Shared Access (SAS) Token, which allows for read access.
 
     Args:
@@ -84,6 +91,13 @@ def sign_url(url: str) -> str:
     Returns:
         str: The signed HREF
     """
+    if is_vrt_string(url):
+        return sign_vrt_string(url)
+    else:
+        return sign_url(url)
+
+
+def sign_url(url: str) -> str:
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
         return url
@@ -91,6 +105,14 @@ def sign_url(url: str) -> str:
     account, container = parse_blob_url(parsed_url)
     token = get_token(account, container)
     return token.sign(url).href
+
+
+def _repl_vrt(m: re.Match) -> str:
+    return sign_url(m.string[slice(*m.span())])
+
+
+def sign_vrt_string(vrt: str) -> str:
+    return asset_xpr.sub(_repl_vrt, vrt)
 
 
 @sign.register(Item)

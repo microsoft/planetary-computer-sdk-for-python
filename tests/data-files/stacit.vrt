@@ -1,0 +1,886 @@
+<VRTDataset rasterXSize="161196" rasterYSize="25023">
+  <SRS dataAxisToSRSAxisMapping="1,2">PROJCS["NAD83 / UTM zone 14N",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-99],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","26914"]]</SRS>
+  <GeoTransform>  4.0896540000000002e+05,  6.0000000000000009e-01,  0.0000000000000000e+00,  4.4355894000000004e+06,  0.0000000000000000e+00, -6.0000000000000264e-01</GeoTransform>
+  <VRTRasterBand dataType="Byte" band="1">
+    <Description>Red</Description>
+    <ColorInterp>Red</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_ne_14_060_20190709.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9845" ySize="12485" />
+      <DstRect xOff="124597" yOff="12526" xSize="9845" ySize="12485" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9837" ySize="12670" />
+      <DstRect xOff="124621" yOff="872" xSize="9837" ySize="12670" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9821" ySize="12657" />
+      <DstRect xOff="142404" yOff="897" xSize="9821" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_sw_14_060_20190709.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9970" ySize="12663" />
+      <DstRect xOff="133442" yOff="888" xSize="9970" ySize="12663" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9995" ySize="12491" />
+      <DstRect xOff="115626" yOff="12504" xSize="9995" ySize="12491" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39100/m_3910008_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9957" ySize="12571" />
+      <DstRect xOff="0" yOff="11654" xSize="9957" ySize="12571" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10011" ySize="12503" />
+      <DstRect xOff="97827" yOff="12442" xSize="10011" ySize="12503" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9860" ySize="12497" />
+      <DstRect xOff="106798" yOff="12476" xSize="9860" ySize="12497" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10027" ySize="12516" />
+      <DstRect xOff="80027" yOff="12355" xSize="10027" ySize="12516" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9877" ySize="12509" />
+      <DstRect xOff="88998" yOff="12402" xSize="9877" ySize="12509" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10043" ySize="12529" />
+      <DstRect xOff="62228" yOff="12242" xSize="10043" ySize="12529" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9893" ySize="12522" />
+      <DstRect xOff="71199" yOff="12302" xSize="9893" ySize="12522" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10060" ySize="12542" />
+      <DstRect xOff="44428" yOff="12105" xSize="10060" ySize="12542" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9909" ySize="12534" />
+      <DstRect xOff="53399" yOff="12177" xSize="9909" ySize="12534" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10075" ySize="12554" />
+      <DstRect xOff="26629" yOff="11943" xSize="10075" ySize="12554" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9925" ySize="12546" />
+      <DstRect xOff="35600" yOff="12028" xSize="9925" ySize="12546" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10091" ySize="12567" />
+      <DstRect xOff="8829" yOff="11756" xSize="10091" ySize="12567" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9941" ySize="12559" />
+      <DstRect xOff="17800" yOff="11853" xSize="9941" ySize="12559" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9936" ySize="12744" />
+      <DstRect xOff="17920" yOff="199" xSize="9936" ySize="12744" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40100/m_4010064_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9951" ySize="12756" />
+      <DstRect xOff="137" yOff="0" xSize="9951" ySize="12756" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9988" ySize="12676" />
+      <DstRect xOff="115658" yOff="850" xSize="9988" ySize="12676" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10004" ySize="12688" />
+      <DstRect xOff="97875" yOff="788" xSize="10004" ySize="12688" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9853" ySize="12682" />
+      <DstRect xOff="106838" yOff="822" xSize="9853" ySize="12682" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10020" ySize="12701" />
+      <DstRect xOff="80092" yOff="701" xSize="10020" ySize="12701" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9870" ySize="12694" />
+      <DstRect xOff="89054" yOff="748" xSize="9870" ySize="12694" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10037" ySize="12714" />
+      <DstRect xOff="62308" yOff="588" xSize="10037" ySize="12714" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9886" ySize="12707" />
+      <DstRect xOff="71271" yOff="648" xSize="9886" ySize="12707" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10052" ySize="12726" />
+      <DstRect xOff="44525" yOff="451" xSize="10052" ySize="12726" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9902" ySize="12719" />
+      <DstRect xOff="53488" yOff="523" xSize="9902" ySize="12719" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10069" ySize="12739" />
+      <DstRect xOff="26741" yOff="289" xSize="10069" ySize="12739" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9919" ySize="12731" />
+      <DstRect xOff="35704" yOff="374" xSize="9919" ySize="12731" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10086" ySize="12751" />
+      <DstRect xOff="8957" yOff="102" xSize="10086" ySize="12751" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39098/m_3909801_nw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9971" ySize="12472" />
+      <DstRect xOff="151225" yOff="12551" xSize="9971" ySize="12472" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40098/m_4009857_sw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9963" ySize="12657" />
+      <DstRect xOff="151225" yOff="897" xSize="9963" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_nw_14_060_20190828.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9979" ySize="12478" />
+      <DstRect xOff="133425" yOff="12542" xSize="9979" ySize="12478" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_ne_14_060_20190828.tif</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9829" ySize="12472" />
+      <DstRect xOff="142396" yOff="12551" xSize="9829" ySize="12472" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="2">
+    <Description>Green</Description>
+    <ColorInterp>Green</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_ne_14_060_20190709.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9845" ySize="12485" />
+      <DstRect xOff="124597" yOff="12526" xSize="9845" ySize="12485" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9837" ySize="12670" />
+      <DstRect xOff="124621" yOff="872" xSize="9837" ySize="12670" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9821" ySize="12657" />
+      <DstRect xOff="142404" yOff="897" xSize="9821" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_sw_14_060_20190709.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9970" ySize="12663" />
+      <DstRect xOff="133442" yOff="888" xSize="9970" ySize="12663" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9995" ySize="12491" />
+      <DstRect xOff="115626" yOff="12504" xSize="9995" ySize="12491" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39100/m_3910008_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9957" ySize="12571" />
+      <DstRect xOff="0" yOff="11654" xSize="9957" ySize="12571" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10011" ySize="12503" />
+      <DstRect xOff="97827" yOff="12442" xSize="10011" ySize="12503" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9860" ySize="12497" />
+      <DstRect xOff="106798" yOff="12476" xSize="9860" ySize="12497" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10027" ySize="12516" />
+      <DstRect xOff="80027" yOff="12355" xSize="10027" ySize="12516" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9877" ySize="12509" />
+      <DstRect xOff="88998" yOff="12402" xSize="9877" ySize="12509" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10043" ySize="12529" />
+      <DstRect xOff="62228" yOff="12242" xSize="10043" ySize="12529" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9893" ySize="12522" />
+      <DstRect xOff="71199" yOff="12302" xSize="9893" ySize="12522" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10060" ySize="12542" />
+      <DstRect xOff="44428" yOff="12105" xSize="10060" ySize="12542" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9909" ySize="12534" />
+      <DstRect xOff="53399" yOff="12177" xSize="9909" ySize="12534" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10075" ySize="12554" />
+      <DstRect xOff="26629" yOff="11943" xSize="10075" ySize="12554" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9925" ySize="12546" />
+      <DstRect xOff="35600" yOff="12028" xSize="9925" ySize="12546" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10091" ySize="12567" />
+      <DstRect xOff="8829" yOff="11756" xSize="10091" ySize="12567" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9941" ySize="12559" />
+      <DstRect xOff="17800" yOff="11853" xSize="9941" ySize="12559" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9936" ySize="12744" />
+      <DstRect xOff="17920" yOff="199" xSize="9936" ySize="12744" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40100/m_4010064_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9951" ySize="12756" />
+      <DstRect xOff="137" yOff="0" xSize="9951" ySize="12756" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9988" ySize="12676" />
+      <DstRect xOff="115658" yOff="850" xSize="9988" ySize="12676" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10004" ySize="12688" />
+      <DstRect xOff="97875" yOff="788" xSize="10004" ySize="12688" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9853" ySize="12682" />
+      <DstRect xOff="106838" yOff="822" xSize="9853" ySize="12682" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10020" ySize="12701" />
+      <DstRect xOff="80092" yOff="701" xSize="10020" ySize="12701" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9870" ySize="12694" />
+      <DstRect xOff="89054" yOff="748" xSize="9870" ySize="12694" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10037" ySize="12714" />
+      <DstRect xOff="62308" yOff="588" xSize="10037" ySize="12714" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9886" ySize="12707" />
+      <DstRect xOff="71271" yOff="648" xSize="9886" ySize="12707" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10052" ySize="12726" />
+      <DstRect xOff="44525" yOff="451" xSize="10052" ySize="12726" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9902" ySize="12719" />
+      <DstRect xOff="53488" yOff="523" xSize="9902" ySize="12719" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10069" ySize="12739" />
+      <DstRect xOff="26741" yOff="289" xSize="10069" ySize="12739" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9919" ySize="12731" />
+      <DstRect xOff="35704" yOff="374" xSize="9919" ySize="12731" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10086" ySize="12751" />
+      <DstRect xOff="8957" yOff="102" xSize="10086" ySize="12751" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39098/m_3909801_nw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9971" ySize="12472" />
+      <DstRect xOff="151225" yOff="12551" xSize="9971" ySize="12472" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40098/m_4009857_sw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9963" ySize="12657" />
+      <DstRect xOff="151225" yOff="897" xSize="9963" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_nw_14_060_20190828.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9979" ySize="12478" />
+      <DstRect xOff="133425" yOff="12542" xSize="9979" ySize="12478" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_ne_14_060_20190828.tif</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9829" ySize="12472" />
+      <DstRect xOff="142396" yOff="12551" xSize="9829" ySize="12472" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="3">
+    <Description>Blue</Description>
+    <ColorInterp>Blue</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_ne_14_060_20190709.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9845" ySize="12485" />
+      <DstRect xOff="124597" yOff="12526" xSize="9845" ySize="12485" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9837" ySize="12670" />
+      <DstRect xOff="124621" yOff="872" xSize="9837" ySize="12670" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9821" ySize="12657" />
+      <DstRect xOff="142404" yOff="897" xSize="9821" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_sw_14_060_20190709.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9970" ySize="12663" />
+      <DstRect xOff="133442" yOff="888" xSize="9970" ySize="12663" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9995" ySize="12491" />
+      <DstRect xOff="115626" yOff="12504" xSize="9995" ySize="12491" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39100/m_3910008_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9957" ySize="12571" />
+      <DstRect xOff="0" yOff="11654" xSize="9957" ySize="12571" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10011" ySize="12503" />
+      <DstRect xOff="97827" yOff="12442" xSize="10011" ySize="12503" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9860" ySize="12497" />
+      <DstRect xOff="106798" yOff="12476" xSize="9860" ySize="12497" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10027" ySize="12516" />
+      <DstRect xOff="80027" yOff="12355" xSize="10027" ySize="12516" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9877" ySize="12509" />
+      <DstRect xOff="88998" yOff="12402" xSize="9877" ySize="12509" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10043" ySize="12529" />
+      <DstRect xOff="62228" yOff="12242" xSize="10043" ySize="12529" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9893" ySize="12522" />
+      <DstRect xOff="71199" yOff="12302" xSize="9893" ySize="12522" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10060" ySize="12542" />
+      <DstRect xOff="44428" yOff="12105" xSize="10060" ySize="12542" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9909" ySize="12534" />
+      <DstRect xOff="53399" yOff="12177" xSize="9909" ySize="12534" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10075" ySize="12554" />
+      <DstRect xOff="26629" yOff="11943" xSize="10075" ySize="12554" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9925" ySize="12546" />
+      <DstRect xOff="35600" yOff="12028" xSize="9925" ySize="12546" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10091" ySize="12567" />
+      <DstRect xOff="8829" yOff="11756" xSize="10091" ySize="12567" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9941" ySize="12559" />
+      <DstRect xOff="17800" yOff="11853" xSize="9941" ySize="12559" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9936" ySize="12744" />
+      <DstRect xOff="17920" yOff="199" xSize="9936" ySize="12744" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40100/m_4010064_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9951" ySize="12756" />
+      <DstRect xOff="137" yOff="0" xSize="9951" ySize="12756" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9988" ySize="12676" />
+      <DstRect xOff="115658" yOff="850" xSize="9988" ySize="12676" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10004" ySize="12688" />
+      <DstRect xOff="97875" yOff="788" xSize="10004" ySize="12688" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9853" ySize="12682" />
+      <DstRect xOff="106838" yOff="822" xSize="9853" ySize="12682" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10020" ySize="12701" />
+      <DstRect xOff="80092" yOff="701" xSize="10020" ySize="12701" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9870" ySize="12694" />
+      <DstRect xOff="89054" yOff="748" xSize="9870" ySize="12694" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10037" ySize="12714" />
+      <DstRect xOff="62308" yOff="588" xSize="10037" ySize="12714" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9886" ySize="12707" />
+      <DstRect xOff="71271" yOff="648" xSize="9886" ySize="12707" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10052" ySize="12726" />
+      <DstRect xOff="44525" yOff="451" xSize="10052" ySize="12726" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9902" ySize="12719" />
+      <DstRect xOff="53488" yOff="523" xSize="9902" ySize="12719" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10069" ySize="12739" />
+      <DstRect xOff="26741" yOff="289" xSize="10069" ySize="12739" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9919" ySize="12731" />
+      <DstRect xOff="35704" yOff="374" xSize="9919" ySize="12731" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10086" ySize="12751" />
+      <DstRect xOff="8957" yOff="102" xSize="10086" ySize="12751" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39098/m_3909801_nw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9971" ySize="12472" />
+      <DstRect xOff="151225" yOff="12551" xSize="9971" ySize="12472" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40098/m_4009857_sw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9963" ySize="12657" />
+      <DstRect xOff="151225" yOff="897" xSize="9963" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_nw_14_060_20190828.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9979" ySize="12478" />
+      <DstRect xOff="133425" yOff="12542" xSize="9979" ySize="12478" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_ne_14_060_20190828.tif</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9829" ySize="12472" />
+      <DstRect xOff="142396" yOff="12551" xSize="9829" ySize="12472" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="4">
+    <Metadata>
+      <MDI key="description">near-infrared</MDI>
+    </Metadata>
+    <Description>NIR</Description>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_ne_14_060_20190709.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9845" ySize="12485" />
+      <DstRect xOff="124597" yOff="12526" xSize="9845" ySize="12485" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9837" ySize="12670" />
+      <DstRect xOff="124621" yOff="872" xSize="9837" ySize="12670" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_se_14_060_20190709.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9821" ySize="12657" />
+      <DstRect xOff="142404" yOff="897" xSize="9821" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009964_sw_14_060_20190709.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9970" ySize="12663" />
+      <DstRect xOff="133442" yOff="888" xSize="9970" ySize="12663" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909907_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9995" ySize="12491" />
+      <DstRect xOff="115626" yOff="12504" xSize="9995" ySize="12491" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39100/m_3910008_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9957" ySize="12571" />
+      <DstRect xOff="0" yOff="11654" xSize="9957" ySize="12571" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10011" ySize="12503" />
+      <DstRect xOff="97827" yOff="12442" xSize="10011" ySize="12503" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909906_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9860" ySize="12497" />
+      <DstRect xOff="106798" yOff="12476" xSize="9860" ySize="12497" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10027" ySize="12516" />
+      <DstRect xOff="80027" yOff="12355" xSize="10027" ySize="12516" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909905_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9877" ySize="12509" />
+      <DstRect xOff="88998" yOff="12402" xSize="9877" ySize="12509" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10043" ySize="12529" />
+      <DstRect xOff="62228" yOff="12242" xSize="10043" ySize="12529" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909904_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9893" ySize="12522" />
+      <DstRect xOff="71199" yOff="12302" xSize="9893" ySize="12522" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10060" ySize="12542" />
+      <DstRect xOff="44428" yOff="12105" xSize="10060" ySize="12542" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909903_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9909" ySize="12534" />
+      <DstRect xOff="53399" yOff="12177" xSize="9909" ySize="12534" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10075" ySize="12554" />
+      <DstRect xOff="26629" yOff="11943" xSize="10075" ySize="12554" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909902_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9925" ySize="12546" />
+      <DstRect xOff="35600" yOff="12028" xSize="9925" ySize="12546" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_nw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10091" ySize="12567" />
+      <DstRect xOff="8829" yOff="11756" xSize="10091" ySize="12567" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909901_ne_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9941" ySize="12559" />
+      <DstRect xOff="17800" yOff="11853" xSize="9941" ySize="12559" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9936" ySize="12744" />
+      <DstRect xOff="17920" yOff="199" xSize="9936" ySize="12744" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40100/m_4010064_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9951" ySize="12756" />
+      <DstRect xOff="137" yOff="0" xSize="9951" ySize="12756" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009963_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9988" ySize="12676" />
+      <DstRect xOff="115658" yOff="850" xSize="9988" ySize="12676" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10004" ySize="12688" />
+      <DstRect xOff="97875" yOff="788" xSize="10004" ySize="12688" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009962_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9853" ySize="12682" />
+      <DstRect xOff="106838" yOff="822" xSize="9853" ySize="12682" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10020" ySize="12701" />
+      <DstRect xOff="80092" yOff="701" xSize="10020" ySize="12701" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009961_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9870" ySize="12694" />
+      <DstRect xOff="89054" yOff="748" xSize="9870" ySize="12694" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10037" ySize="12714" />
+      <DstRect xOff="62308" yOff="588" xSize="10037" ySize="12714" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009960_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9886" ySize="12707" />
+      <DstRect xOff="71271" yOff="648" xSize="9886" ySize="12707" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10052" ySize="12726" />
+      <DstRect xOff="44525" yOff="451" xSize="10052" ySize="12726" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009959_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9902" ySize="12719" />
+      <DstRect xOff="53488" yOff="523" xSize="9902" ySize="12719" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10069" ySize="12739" />
+      <DstRect xOff="26741" yOff="289" xSize="10069" ySize="12739" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009958_se_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9919" ySize="12731" />
+      <DstRect xOff="35704" yOff="374" xSize="9919" ySize="12731" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40099/m_4009957_sw_14_060_20190711.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="10086" ySize="12751" />
+      <DstRect xOff="8957" yOff="102" xSize="10086" ySize="12751" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39098/m_3909801_nw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9971" ySize="12472" />
+      <DstRect xOff="151225" yOff="12551" xSize="9971" ySize="12472" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/40098/m_4009857_sw_14_060_20190713.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9963" ySize="12657" />
+      <DstRect xOff="151225" yOff="897" xSize="9963" ySize="12657" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_nw_14_060_20190828.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9979" ySize="12478" />
+      <DstRect xOff="133425" yOff="12542" xSize="9979" ySize="12478" />
+    </SimpleSource>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="0">/vsicurl/https://naipeuwest.blob.core.windows.net/naip/v002/ks/2019/ks_60cm_2019/39099/m_3909908_ne_14_060_20190828.tif</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SrcRect xOff="0" yOff="0" xSize="9829" ySize="12472" />
+      <DstRect xOff="142396" yOff="12551" xSize="9829" ySize="12472" />
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>
