@@ -2,4 +2,5 @@ black==21.10b0
 flake8==4.0.1
 ipdb==0.13.7
 mypy==0.910
+types-requests==2.26.0
 setuptools==58.5.3
