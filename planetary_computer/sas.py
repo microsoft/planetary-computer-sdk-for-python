@@ -81,15 +81,23 @@ def sign(obj: Any) -> Any:
 
 @sign.register(str)
 def sign_string(url: str) -> str:
-    """Sign a URL with a Shared Access (SAS) Token, which allows for read access.
+    """Sign a URL or VRT-like string containing URLs with a Shared Access (SAS) Token
+
+    Signing with a SAS token allows read access to files in blob storage.
 
     Args:
-        url (str): The HREF of the asset in the format of a URL.
-            This can be found on STAC Item's Asset 'href' value. Only URLs to assets
-            in Azure Blob Storage are signed, other URLs are returned unmodified.
+        url (str): The HREF of the asset as a URL or a GDAL VRT
+
+            Single URLs can be found on a STAC Item's Asset ``href`` value. Only URLs to
+            assets in Azure Blob Storage are signed, other URLs are returned unmodified.
+
+            GDAL VRTs can combine many data sources into a single mosaic. A VRT can be
+            built quickly from the GDAL STACIT driver
+            https://gdal.org/drivers/raster/stacit.html. Each URL to Azure Blob Storage
+            within the VRT is signed.
 
     Returns:
-        str: The signed HREF
+        str: The signed HREF or VRT
     """
     if is_vrt_string(url):
         return sign_vrt_string(url)
@@ -98,6 +106,19 @@ def sign_string(url: str) -> str:
 
 
 def sign_url(url: str) -> str:
+    """Sign a URL or with a Shared Access (SAS) Token
+
+    Signing with a SAS token allows read access to files in blob storage.
+
+    Args:
+        url (str): The HREF of the asset as a URL
+
+            Single URLs can be found on a STAC Item's Asset ``href`` value. Only URLs to
+            assets in Azure Blob Storage are signed, other URLs are returned unmodified.
+
+    Returns:
+        str: The signed HREF
+    """
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
         return url
@@ -108,10 +129,42 @@ def sign_url(url: str) -> str:
 
 
 def _repl_vrt(m: re.Match) -> str:
+    # replace all blob-storages URLs with a signed version.
     return sign_url(m.string[slice(*m.span())])
 
 
 def sign_vrt_string(vrt: str) -> str:
+    """Sign a VRT-like string containing URLs with a Shared Access (SAS) Token
+
+    Signing with a SAS token allows read access to files in blob storage.
+
+    Args:
+        vrt (str): The GDAL VRT
+
+            GDAL VRTs can combine many data sources into a single mosaic. A VRT can be
+            built quickly from the GDAL STACIT driver
+            https://gdal.org/drivers/raster/stacit.html. Each URL to Azure Blob Storage
+            within the VRT is signed.
+
+    Returns:
+        str: The signed VRT
+
+    Examples
+    --------
+    >>> from osgeo import gdal
+    >>> from pathlib import Path
+    >>> search = (
+    ...     "STACIT:\"https://planetarycomputer.microsoft.com/api/stac/v1/search?"
+    ...     "collections=naip&bbox=-100,40,-99,41"
+    ...     "&datetime=2019-01-01T00:00:00Z%2F..\":asset=image"
+    ... )
+    >>> gdal.Translate("out.vrt", search)
+    >>> signed_vrt = planetary_computer.sign(Path("out.vrt").read_text())
+    >>> print(signed_vrt)
+    <VRTDataset rasterXSize="161196" rasterYSize="25023">
+    ...
+    </VRTDataset>
+    """
     return asset_xpr.sub(_repl_vrt, vrt)
 
 

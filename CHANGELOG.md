@@ -1,3 +1,9 @@
+# 0.4.3
+
+## New Features
+
+* `sign` will now sign VRT-like strings, like those returned by GDAL's [STACIT](https://gdal.org/drivers/raster/stacit.html) driver.
+
 # 0.4.2
 
 ## New Features
