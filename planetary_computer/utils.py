@@ -1,3 +1,5 @@
+import re
+
 from typing import Tuple, Optional
 from urllib.parse import ParseResult, urlunparse, urlparse
 
@@ -57,3 +59,18 @@ def is_fsspec_asset(asset: pystac.Asset) -> bool:
     return "account_name" in asset.extra_fields.get(
         "table:storage_options", {}
     ) or "account_name" in asset.extra_fields.get("xarray:storage_options", {})
+
+
+def is_vrt_string(s: str) -> bool:
+    """
+    Check whether a string looks like a VRT
+    """
+    return s.strip().startswith("<VRTDataset") and s.strip().endswith("</VRTDataset>")
+
+
+asset_xpr = re.compile(
+    r"https://(?P<account>[A-z0-9]+?)"
+    r"\.blob\.core\.windows\.net/"
+    r"(?P<container>.+?)"
+    r"/(?P<blob>[^<]+)"
+)

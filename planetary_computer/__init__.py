@@ -11,6 +11,7 @@ from planetary_computer.sas import (
 )
 from planetary_computer.settings import set_subscription_key
 
+from planetary_computer.version import __version__
 
 __all__ = [
     "set_subscription_key",
@@ -20,4 +21,5 @@ __all__ = [
     "sign_item",
     "sign_url",
     "sign",
+    "__version__",
 ]

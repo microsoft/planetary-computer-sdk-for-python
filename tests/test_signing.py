@@ -174,6 +174,12 @@ class TestSigning(unittest.TestCase):
         )
         self.assertRootResolved(item)
 
+    def test_sign_vrt(self) -> None:
+        vrt_string = Path(HERE / "data-files/stacit.vrt").read_text()
+        self.assertEqual(vrt_string.count("?st"), 0)
+        result = pc.sign(vrt_string)
+        self.assertGreater(result.count("?st"), 0)
+
 
 class TestUtils(unittest.TestCase):
     def test_parse_adlfs_url(self) -> None:
