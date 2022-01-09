@@ -290,11 +290,13 @@ def sign_reference_file(references: Mapping) -> Mapping:
     Returns:
         references (Mapping): The dictionary, now with signed URLs.
 
-    This method will sign all of the URLs under the ``"templates"`` key. Mappings with other
-    keys will be returned unchanged. See https://fsspec.github.io/kerchunk/ for more.
+    This method will sign all of the URLs under the ``"templates"`` key. Mappings
+    with other keys will be returned unchanged. See https://fsspec.github.io/kerchunk/
+    for more.
     """
     # TODO(python3.8): Use TypedDict instead of Mapping to limit the kinds we accept.
-    # If we accept other mapping types in the future, we'll need to dispatch within the function.
+    # If we accept other mapping types in the future, we'll need to dispatch within
+    # the function.
     if set(references) == {"version", "templates", "refs"}:
         references = copy.deepcopy(references)
 
