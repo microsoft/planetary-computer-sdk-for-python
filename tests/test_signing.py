@@ -1,4 +1,5 @@
 import os
+import json
 import unittest
 from urllib.parse import parse_qs, urlparse
 from pathlib import Path
@@ -55,6 +56,12 @@ def get_sample_tabular_item() -> Item:
 
 def get_sample_item_collection() -> ItemCollection:
     return ItemCollection([get_sample_item()])
+
+
+def get_sample_references() -> dict:
+    with open(os.fspath(HERE.joinpath("data-files/sample-reference-file.json"))) as f:
+        references = json.load(f)
+    return references
 
 
 class TestSigning(unittest.TestCase):
@@ -179,6 +186,12 @@ class TestSigning(unittest.TestCase):
         self.assertEqual(vrt_string.count("?st"), 0)
         result = pc.sign(vrt_string)
         self.assertGreater(result.count("?st"), 0)
+
+    def test_sign_references_file(self) -> None:
+        references = get_sample_references()
+        result = pc.sign(references)
+        for v in result["templates"].values():
+            self.assertSigned(v)
 
 
 class TestUtils(unittest.TestCase):
