@@ -1,3 +1,9 @@
+# 0.4.5
+
+## New Features
+
+* `sign` will now sign [Kerchunk](kerchunk)-style dictionaries of references.
+
 # 0.4.4
 
 ## New Features
@@ -49,3 +55,4 @@
 [gh-25]: https://github.com/microsoft/planetary-computer-sdk-for-python/issues/25
 [gh-30]: https://github.com/microsoft/planetary-computer-sdk-for-python/pull/30
 [xarray-assets]: https://github.com/stac-extensions/xarray-assets
+[kerchunk]: https://fsspec.github.io/kerchunk/

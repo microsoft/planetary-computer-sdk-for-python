@@ -1,6 +1,8 @@
 import re
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Mapping
+import collections.abc
+import copy
 import warnings
 
 from functools import singledispatch
@@ -70,12 +72,13 @@ def sign(obj: Any) -> Any:
 
     Args:
         obj (Any): The object to sign. Must be one of:
-            str (URL), Asset, Item, ItemCollection, or ItemSearch
+            str (URL), Asset, Item, ItemCollection, or ItemSearch, or a mapping.
     Returns:
         Any: A copy of the object where all relevant URLs have been signed
     """
     raise TypeError(
-        "Invalid type, must be one of: str, Asset, Item, ItemCollection, or ItemSearch"
+        "Invalid type, must be one of: str, Asset, Item, ItemCollection, "
+        "ItemSearch, or mapping"
     )
 
 
@@ -275,6 +278,38 @@ def _search_and_sign(search: ItemSearch) -> ItemCollection:
         earliest expiry time for any assets that were signed.
     """
     return sign(search.get_all_items())
+
+
+@sign.register(collections.abc.Mapping)
+def sign_reference_file(references: Mapping) -> Mapping:
+    """
+    Sign a Kerchunk-style dictionary of references.
+
+    Args:
+        references (Mapping): The dictionary containing the references.
+
+    Returns:
+        references (Mapping): The dictionary, now with signed URLs.
+
+    This method will sign all of the URLs under the ``"templates"`` key. Mappings
+    with other keys will be returned unchanged. See https://fsspec.github.io/kerchunk/
+    for more.
+    """
+    # TODO(python3.8): Use TypedDict instead of Mapping to limit the kinds we accept.
+    # If we accept other mapping types in the future, we'll need to dispatch within
+    # the function.
+    if set(references) == {"version", "templates", "refs"}:
+        references = copy.deepcopy(references)
+
+        for k, v in references["templates"].items():
+            references["templates"][k] = sign_url(v)
+
+    else:
+        raise TypeError(
+            "When providing a mapping, the keys should be 'version', 'templates', "
+            "and 'refs'."
+        )
+    return references
 
 
 def get_token(account_name: str, container_name: str) -> SASToken:
