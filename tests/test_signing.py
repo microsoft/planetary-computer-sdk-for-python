@@ -193,6 +193,16 @@ class TestSigning(unittest.TestCase):
         for v in result["templates"].values():
             self.assertSigned(v)
 
+    def test_sign_other_mapping_raises(self) -> None:
+        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
+            pc.sign({"version": None})
+
+        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
+            pc.sign({})
+
+        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
+            pc.sign({"version": None, "templates": None, "refs": None, "extra": None})
+
 
 class TestUtils(unittest.TestCase):
     def test_parse_adlfs_url(self) -> None:
