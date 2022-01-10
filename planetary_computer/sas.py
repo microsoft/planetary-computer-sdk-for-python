@@ -77,7 +77,8 @@ def sign(obj: Any) -> Any:
         Any: A copy of the object where all relevant URLs have been signed
     """
     raise TypeError(
-        "Invalid type, must be one of: str, Asset, Item, ItemCollection, ItemSearch, or mapping"
+        "Invalid type, must be one of: str, Asset, Item, ItemCollection, "
+        "ItemSearch, or mapping"
     )
 
 
@@ -304,7 +305,10 @@ def sign_reference_file(references: Mapping) -> Mapping:
             references["templates"][k] = sign_url(v)
 
     else:
-        raise TypeError("When providing a mapping, the keys should be 'version', 'templates', 'refs'.")
+        raise TypeError(
+            "When providing a mapping, the keys should be 'version', 'templates', "
+            "and 'refs'."
+        )
     return references
 
 
