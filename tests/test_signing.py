@@ -49,6 +49,13 @@ def get_sample_zarr_item() -> Item:
     return resolve(Item.from_file(file_path))
 
 
+def get_sample_zarr_open_dataset_item() -> Item:
+    file_path = os.fspath(
+        HERE.joinpath("data-files/sample-zarr-open-dataset-item.json")
+    )
+    return resolve(Item.from_file(file_path))
+
+
 def get_sample_tabular_item() -> Item:
     file_path = os.fspath(HERE.joinpath("data-files/sample-tabular-item.json"))
     return resolve(Item.from_file(file_path))
@@ -170,6 +177,34 @@ class TestSigning(unittest.TestCase):
         self.assertIn(
             "credential",
             result.assets["zarr-abfs"].extra_fields["xarray:storage_options"],
+        )
+        self.assertRootResolved(item)
+
+    def test_sign_zarr_open_dataset_item(self) -> None:
+        item = get_sample_zarr_open_dataset_item()
+        result = pc.sign(item)
+        self.assertIn(
+            "credential",
+            result.assets["zarr-abfs"].extra_fields["xarray:open_kwargs"][
+                "storage_options"
+            ],
+        )
+        self.assertRootResolved(item)
+
+    def test_sign_zarr_open_dataset_nested_item(self) -> None:
+        # nest inside backend_kwargs
+        item = get_sample_zarr_open_dataset_item()
+        extra_fields = item.assets["zarr-abfs"].extra_fields
+        extra_fields["xarray:open_kwargs"]["backend_kwargs"][
+            "storage_options"
+        ] = extra_fields["xarray:open_kwargs"].pop("storage_options")
+
+        result = pc.sign(item)
+        self.assertIn(
+            "credential",
+            result.assets["zarr-abfs"].extra_fields["xarray:open_kwargs"][
+                "backend_kwargs"
+            ]["storage_options"],
         )
         self.assertRootResolved(item)
 

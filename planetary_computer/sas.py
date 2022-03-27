@@ -218,19 +218,31 @@ def _sign_asset_in_place(asset: Asset) -> Asset:
     if is_fsspec_asset(asset):
         key: Optional[str]
 
+        storage_options = None
         for key in ["table:storage_options", "xarray:storage_options"]:
             if key in asset.extra_fields:
+                storage_options = asset.extra_fields[key]
                 break
-        else:
-            key = None
+        if storage_options is None:
+            storage_options = asset.extra_fields.get("xarray:open_kwargs", {}).get(
+                "storage_options", None
+            )
 
-        if key:
-            storage_options = asset.extra_fields[key]
-            account = storage_options.get("account_name")
-            container = parse_adlfs_url(asset.href)
-            if account and container:
-                token = get_token(account, container)
-                asset.extra_fields[key]["credential"] = token.token
+        if storage_options is None:
+            storage_options = (
+                asset.extra_fields.get("xarray:open_kwargs", {})
+                .get("backend_kwargs", {})
+                .get("storage_options", None)
+            )
+
+        if storage_options is None:
+            return asset
+        account = storage_options.get("account_name")
+        container = parse_adlfs_url(asset.href)
+        if account and container:
+            token = get_token(account, container)
+            storage_options["credential"] = token.token
+
     return asset
 
 
