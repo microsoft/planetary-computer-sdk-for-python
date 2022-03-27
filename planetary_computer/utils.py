@@ -53,12 +53,31 @@ def is_fsspec_asset(asset: pystac.Asset) -> bool:
     """
     Determine if an Asset points to an fsspec URL.
 
-    This checks if "account_name" is present in the asset's "table:storage_options"
-    or "xarray:storage_options" fields.
+    This checks if "account_name" is present in the asset's
+
+    * "table:storage_options"
+    * "xarray:storage_options"
+    * "xarray:open_kwargs.storage_options"
+    * "xarray:open_kwargs.backend_kwargs.storage_options"
     """
-    return "account_name" in asset.extra_fields.get(
-        "table:storage_options", {}
-    ) or "account_name" in asset.extra_fields.get("xarray:storage_options", {})
+    result = (
+        ("account_name" in asset.extra_fields.get("table:storage_options", {}))
+        or ("account_name" in asset.extra_fields.get("xarray:storage_options", {}))
+        or (
+            "account_name"
+            in asset.extra_fields.get("xarray:open_kwargs", {}).get(
+                "storage_options", {}
+            )
+        )
+        or (
+            "account_name"
+            in asset.extra_fields.get("xarray:open_kwargs", {})
+            .get("backend_kwargs", {})
+            .get("storage_options", {})
+        )
+    )
+
+    return result
 
 
 def is_vrt_string(s: str) -> bool:
