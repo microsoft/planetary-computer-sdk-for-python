@@ -1,3 +1,9 @@
+# 0.4.6
+
+## New Features
+
+* `sign` will now sign assets whose URLs are registered with [adlfs] and nest `storage_options` from the [xarray-assets] extension under `xarray:open_kwargs`.
+
 # 0.4.5
 
 ## New Features
