@@ -1,6 +1,6 @@
 import re
 
-from typing import Tuple, Optional
+from typing import Any, Dict, Tuple, Optional, Union
 from urllib.parse import ParseResult, urlunparse, urlparse
 
 import pystac
@@ -49,7 +49,7 @@ def parse_adlfs_url(url: str) -> Optional[str]:
     return None
 
 
-def is_fsspec_asset(asset: pystac.Asset) -> bool:
+def is_fsspec_asset(asset: Union[pystac.Asset, Dict[str, Any]]) -> bool:
     """
     Determine if an Asset points to an fsspec URL.
 
@@ -60,18 +60,22 @@ def is_fsspec_asset(asset: pystac.Asset) -> bool:
     * "xarray:open_kwargs.storage_options"
     * "xarray:open_kwargs.backend_kwargs.storage_options"
     """
+    if isinstance(asset, pystac.Asset):
+        # backwards compat
+        extra_fields = asset.extra_fields
+    else:
+        extra_fields = asset
+
     result = (
-        ("account_name" in asset.extra_fields.get("table:storage_options", {}))
-        or ("account_name" in asset.extra_fields.get("xarray:storage_options", {}))
+        ("account_name" in extra_fields.get("table:storage_options", {}))
+        or ("account_name" in extra_fields.get("xarray:storage_options", {}))
         or (
             "account_name"
-            in asset.extra_fields.get("xarray:open_kwargs", {}).get(
-                "storage_options", {}
-            )
+            in extra_fields.get("xarray:open_kwargs", {}).get("storage_options", {})
         )
         or (
             "account_name"
-            in asset.extra_fields.get("xarray:open_kwargs", {})
+            in extra_fields.get("xarray:open_kwargs", {})
             .get("backend_kwargs", {})
             .get("storage_options", {})
         )
