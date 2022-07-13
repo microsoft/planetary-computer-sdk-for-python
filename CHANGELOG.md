@@ -1,3 +1,9 @@
+# 0.4.7
+
+## New Features
+
+* `sign` will now avoid signing URLs that have already been signed.
+
 # 0.4.6
 
 ## New Features
