@@ -283,3 +283,8 @@ class TestUtils(unittest.TestCase):
 
         asset = Asset("adlfs://my-container/my/path.ext")
         self.assertFalse(is_fsspec_asset(asset))
+
+    def test_no_double_sign_url(self) -> None:
+        result = pc.sign(SENTINEL_THUMBNAIL)
+        result2 = pc.sign(result)
+        assert result == result2

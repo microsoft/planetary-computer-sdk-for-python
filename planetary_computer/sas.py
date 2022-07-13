@@ -6,7 +6,7 @@ import copy
 import warnings
 
 from functools import singledispatch
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 import requests
 from pydantic import BaseModel, Field
 from pystac import Asset, Item, ItemCollection
@@ -124,6 +124,11 @@ def sign_url(url: str) -> str:
     """
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
+        return url
+
+    parsed_qs = parse_qs(parsed_url.query)
+    if set(parsed_qs) & {"st", "se", "sp"}:
+        #  looks like we've already signed it
         return url
 
     account, container = parse_blob_url(parsed_url)
