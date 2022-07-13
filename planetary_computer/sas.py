@@ -25,6 +25,7 @@ from planetary_computer.utils import (
 
 
 BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"
+AssetLike = TypeVar("AssetLike", Asset, Dict[str, Any])
 
 
 class SASBase(BaseModel):
@@ -233,9 +234,6 @@ def _sign_asset_in_place(asset: Asset) -> Asset:
     asset.href = sign(asset.href)
     _sign_fsspec_asset_in_place(asset)
     return asset
-
-
-AssetLike = TypeVar("AssetLike", Asset, Dict[str, Any])
 
 
 def _sign_fsspec_asset_in_place(asset: AssetLike) -> None:
