@@ -4,6 +4,7 @@ import unittest
 from urllib.parse import parse_qs, urlparse
 from pathlib import Path
 import warnings
+import pystac
 
 import requests
 
@@ -228,15 +229,60 @@ class TestSigning(unittest.TestCase):
         for v in result["templates"].values():
             self.assertSigned(v)
 
-    def test_sign_other_mapping_raises(self) -> None:
-        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
-            pc.sign({"version": None})
+    def test_no_double_sign_url(self) -> None:
+        result = pc.sign(SENTINEL_THUMBNAIL)
+        result2 = pc.sign(result)
+        assert result == result2
 
-        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
-            pc.sign({})
+    def test_sign_item_dict(self) -> None:
+        item_dict = get_sample_item().to_dict()
+        result = pc.sign(item_dict)
+        self.assertSigned(result["assets"]["image"]["href"])
 
-        with self.assertRaisesRegex(TypeError, "When providing a mapping"):
-            pc.sign({"version": None, "templates": None, "refs": None, "extra": None})
+    def test_sign_fsspec_item_dict(self) -> None:
+        item_dict = get_sample_zarr_open_dataset_item().to_dict()
+        result = pc.sign(item_dict)
+        self.assertIn(
+            "credential",
+            result["assets"]["zarr-abfs"]["xarray:open_kwargs"]["storage_options"],
+        )
+
+    def test_sign_unknown_raises(self) -> None:
+        with self.assertRaisesRegex(TypeError, r"Invalid type"):
+            pc.sign(object())
+
+    def test_sign_feature_collection(self) -> None:
+        item = get_sample_item()
+        feature_collection = pystac.ItemCollection([item]).to_dict()
+        result = pc.sign(feature_collection)
+        self.assertSigned(result["features"][0]["assets"]["image"]["href"])
+
+    def test_sign_item_inplace(self) -> None:
+        item = get_sample_item()
+        result = pc.sign(item)
+        assert result is not item
+
+        result = pc.sign(item, copy=False)
+        assert result is item
+        self.assertSigned(result.assets["image"].href)
+
+    def test_sign_asset_inplace(self) -> None:
+        asset = get_sample_item().assets["image"]
+        result = pc.sign(asset)
+        assert result is not asset
+
+        result = pc.sign(asset, copy=False)
+        assert result is asset
+        self.assertSigned(asset.href)
+
+    def test_sign_item_collection_inplace(self) -> None:
+        item_collection = pystac.ItemCollection([get_sample_item()])
+        result = pc.sign(item_collection)
+        assert result is not item_collection
+
+        result = pc.sign(item_collection, copy=False)
+        assert result is item_collection
+        self.assertSigned(item_collection[0].assets["image"].href)
 
 
 class TestUtils(unittest.TestCase):
@@ -283,8 +329,3 @@ class TestUtils(unittest.TestCase):
 
         asset = Asset("adlfs://my-container/my/path.ext")
         self.assertFalse(is_fsspec_asset(asset))
-
-    def test_no_double_sign_url(self) -> None:
-        result = pc.sign(SENTINEL_THUMBNAIL)
-        result2 = pc.sign(result)
-        assert result == result2
