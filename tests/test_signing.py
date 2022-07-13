@@ -257,7 +257,7 @@ class TestSigning(unittest.TestCase):
         result = pc.sign(feature_collection)
         self.assertSigned(result["features"][0]["assets"]["image"]["href"])
 
-    def test_sign_item_inplace(self):
+    def test_sign_item_inplace(self) -> None:
         item = get_sample_item()
         result = pc.sign(item)
         assert result is not item
@@ -266,7 +266,7 @@ class TestSigning(unittest.TestCase):
         assert result is item
         self.assertSigned(result.assets["image"].href)
 
-    def test_sign_asset_inplace(self):
+    def test_sign_asset_inplace(self) -> None:
         asset = get_sample_item().assets["image"]
         result = pc.sign(asset)
         assert result is not asset
@@ -275,7 +275,7 @@ class TestSigning(unittest.TestCase):
         assert result is asset
         self.assertSigned(asset.href)
 
-    def test_sign_item_collection_inplace(self):
+    def test_sign_item_collection_inplace(self) -> None:
         item_collection = pystac.ItemCollection([get_sample_item()])
         result = pc.sign(item_collection)
         assert result is not item_collection
