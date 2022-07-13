@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional, Mapping, TypeVar, Union, cast
+from typing import Any, Dict, Optional, Mapping, TypeVar, cast
 import collections.abc
 from copy import deepcopy
 import warnings
