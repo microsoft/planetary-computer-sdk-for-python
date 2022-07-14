@@ -9,7 +9,7 @@ from functools import singledispatch
 from urllib.parse import urlparse, parse_qs
 import requests
 from pydantic import BaseModel, Field
-from pystac import Asset, Item, ItemCollection, STACObjectType
+from pystac import Asset, Item, ItemCollection, STACObjectType, Collection
 from pystac.utils import datetime_to_str
 from pystac.serialization.identify import identify_stac_object_type
 from pystac_client import ItemSearch
@@ -130,6 +130,9 @@ def sign_url(url: str, copy: bool = True) -> str:
     """
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
+        return url
+    elif parsed_url.netloc == "ai4edatasetspublicassets.blob.core.windows.net":
+        # special case for public assets storing thumbnails...
         return url
 
     parsed_qs = parse_qs(parsed_url.query)
@@ -323,6 +326,20 @@ def _search_and_sign(search: ItemSearch, copy: bool = True) -> ItemCollection:
         earliest expiry time for any assets that were signed.
     """
     return sign(search.get_all_items())
+
+
+@sign.register(Collection)
+def sign_collection(collection: Collection, copy: bool = True) -> Collection:
+    if copy:
+        # https://github.com/stac-utils/pystac/pull/834 fixed asset dropping
+        assets = collection.assets
+        collection = collection.clone()
+        if assets and not collection.assets:
+            collection.assets = deepcopy(assets)
+
+    for key in collection.assets:
+        _sign_asset_in_place(collection.assets[key])
+    return collection
 
 
 @sign.register(collections.abc.Mapping)
