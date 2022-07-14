@@ -366,13 +366,12 @@ def sign_mapping(mapping: Mapping, copy: bool = True) -> Mapping:
     if copy:
         mapping = deepcopy(mapping)
 
+    types = (STACObjectType.ITEM, STACObjectType.COLLECTION)
     if all(k in mapping for k in ["version", "templates", "refs"]):
         for k, v in mapping["templates"].items():
             mapping["templates"][k] = sign_url(v)
 
-    elif (
-        identify_stac_object_type(cast(Dict[str, Any], mapping)) == STACObjectType.ITEM
-    ):
+    elif identify_stac_object_type(cast(Dict[str, Any], mapping)) in types:
         for k, v in mapping["assets"].items():
             v["href"] = sign_url(v["href"])
             _sign_fsspec_asset_in_place(v)

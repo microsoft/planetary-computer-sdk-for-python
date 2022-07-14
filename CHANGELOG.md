@@ -2,7 +2,9 @@
 
 ## New Features
 
-* `sign` will now avoid signing URLs that have already been signed.
+* `sign` now supports signing URLs that have already been signed.
+* `sign` now supports signing raw JSON objects, in addition to `pystac` objects.
+* `sign` now supports signing `Collection` objects.
 
 # 0.4.6
 

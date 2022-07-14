@@ -72,10 +72,10 @@ def get_sample_references() -> dict:
     return references
 
 
-def get_sample_collection() -> dict:
+def get_sample_collection() -> pystac.Collection:
     with open(os.fspath(HERE.joinpath("data-files/sample-collection.json"))) as f:
         collection = json.load(f)
-    return collection
+    return pystac.Collection.from_dict(collection)
 
 
 class TestSigning(unittest.TestCase):
@@ -291,7 +291,7 @@ class TestSigning(unittest.TestCase):
         self.assertSigned(item_collection[0].assets["image"].href)
 
     def test_sign_collection(self) -> None:
-        collection = pystac.Collection.from_dict(get_sample_collection())
+        collection = get_sample_collection()
         result = pc.sign(collection)
         assert result is not collection
         asset = result.assets["zarr-abfs"]
@@ -306,6 +306,14 @@ class TestSigning(unittest.TestCase):
         self.assertIn(
             "credential",
             asset.extra_fields["xarray:open_kwargs"]["storage_options"],
+        )
+
+    def test_sign_collection_dict(self) -> None:
+        collection_dict = get_sample_collection().to_dict()
+        result = pc.sign(collection_dict)
+        self.assertIn(
+            "credential",
+            result["assets"]["zarr-abfs"]["xarray:open_kwargs"]["storage_options"],
         )
 
 
