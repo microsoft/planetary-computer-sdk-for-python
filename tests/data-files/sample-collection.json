@@ -1,0 +1,84 @@
+{
+    "id": "daymet-daily-hi",
+    "type": "Collection",
+    "links": [],
+    "title": "Daymet Daily Hawaii",
+    "assets": {
+        "thumbnail": {
+            "href": "https://ai4edatasetspublicassets.blob.core.windows.net/assets/pc_thumbnails/daymet-daily-hi.png",
+            "type": "image/png",
+            "roles": [
+                "thumbnail"
+            ],
+            "title": "Daymet daily Hawaii map thumbnail"
+        },
+        "zarr-abfs": {
+            "href": "abfs://daymet-zarr/daily/hi.zarr",
+            "type": "application/vnd+zarr",
+            "roles": [
+                "data",
+                "zarr",
+                "abfs"
+            ],
+            "title": "Daily Hawaii Daymet Azure Blob File System Zarr root",
+            "description": "Azure Blob File System of the daily Hawaii Daymet Zarr Group on Azure Blob Storage for use with adlfs.",
+            "xarray:open_kwargs": {
+                "chunks": {},
+                "engine": "zarr",
+                "consolidated": true,
+                "storage_options": {
+                    "account_name": "daymeteuwest"
+                }
+            }
+        }
+    },
+    "extent": {
+        "spatial": {
+            "bbox": [
+                [
+                    -160.3056,
+                    17.9539,
+                    -154.772,
+                    23.5186
+                ]
+            ]
+        },
+        "temporal": {
+            "interval": [
+                [
+                    "1980-01-01T12:00:00Z",
+                    "2020-12-30T12:00:00Z"
+                ]
+            ]
+        }
+    },
+    "license": "proprietary",
+    "sci:doi": "10.3334/ORNLDAAC/1840",
+    "keywords": [
+        "Daymet",
+        "Hawaii",
+        "Temperature",
+        "Precipitation",
+        "Vapor Pressure",
+        "Weather"
+    ],
+    "providers": [
+       {
+            "url": "https://doi.org/10.3334/ORNLDAAC/1840",
+            "name": "ORNL DAAC",
+            "roles": [
+                "producer"
+            ]
+        }
+    ],
+    "description": "Gridded estimates of daily weather parameters. [Daymet](https://daymet.ornl.gov) Version 4 variables include the following parameters: minimum temperature, maximum temperature, precipitation, shortwave radiation, vapor pressure, snow water equivalent, and day length.\n\n[Daymet](https://daymet.ornl.gov/) provides measurements of near-surface meteorological conditions; the main purpose is to provide data estimates where no instrumentation exists. The dataset covers the period from January 1, 1980 to the present. Each year is processed individually at the close of a calendar year. Data are in a Lambert conformal conic projection for North America and are distributed in Zarr and NetCDF formats, compliant with the [Climate and Forecast (CF) metadata conventions (version 1.6)](http://cfconventions.org/).\n\nUse the DOI at [https://doi.org/10.3334/ORNLDAAC/1840](https://doi.org/10.3334/ORNLDAAC/1840) to cite your usage of the data.\n\nThis dataset provides coverage for Hawaii; North America and Puerto Rico are provided in [separate datasets](https://planetarycomputer.microsoft.com/dataset/group/daymet#daily).\n\n",
+    "sci:citation": "Thornton, M.M., R. Shrestha, P.E. Thornton, S. Kao, Y. Wei, and B.E. Wilson. 2021. Daymet Version 4 Monthly Latency: Daily Surface Weather Data. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1904",
+    "stac_version": "1.0.0",
+    "msft:group_id": "daymet",
+    "msft:container": "daymet-zarr",
+    "stac_extensions": [
+        "https://stac-extensions.github.io/scientific/v1.0.0/schema.json"
+    ],
+    "msft:storage_account": "daymeteuwest",
+    "msft:short_description": "Daily surface weather data on a 1-km grid for Hawaii"
+}

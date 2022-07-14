@@ -9,7 +9,7 @@ from functools import singledispatch
 from urllib.parse import urlparse, parse_qs
 import requests
 from pydantic import BaseModel, Field
-from pystac import Asset, Item, ItemCollection, STACObjectType
+from pystac import Asset, Item, ItemCollection, STACObjectType, Collection
 from pystac.utils import datetime_to_str
 from pystac.serialization.identify import identify_stac_object_type
 from pystac_client import ItemSearch
@@ -130,6 +130,9 @@ def sign_url(url: str, copy: bool = True) -> str:
     """
     parsed_url = urlparse(url.rstrip("/"))
     if not parsed_url.netloc.endswith(BLOB_STORAGE_DOMAIN):
+        return url
+    elif parsed_url.netloc == "ai4edatasetspublicassets.blob.core.windows.net":
+        # special case for public assets storing thumbnails...
         return url
 
     parsed_qs = parse_qs(parsed_url.query)
@@ -325,6 +328,20 @@ def _search_and_sign(search: ItemSearch, copy: bool = True) -> ItemCollection:
     return sign(search.get_all_items())
 
 
+@sign.register(Collection)
+def sign_collection(collection: Collection, copy: bool = True) -> Collection:
+    if copy:
+        # https://github.com/stac-utils/pystac/pull/834 fixed asset dropping
+        assets = collection.assets
+        collection = collection.clone()
+        if assets and not collection.assets:
+            collection.assets = deepcopy(assets)
+
+    for key in collection.assets:
+        _sign_asset_in_place(collection.assets[key])
+    return collection
+
+
 @sign.register(collections.abc.Mapping)
 def sign_mapping(mapping: Mapping, copy: bool = True) -> Mapping:
     """
@@ -349,13 +366,12 @@ def sign_mapping(mapping: Mapping, copy: bool = True) -> Mapping:
     if copy:
         mapping = deepcopy(mapping)
 
+    types = (STACObjectType.ITEM, STACObjectType.COLLECTION)
     if all(k in mapping for k in ["version", "templates", "refs"]):
         for k, v in mapping["templates"].items():
             mapping["templates"][k] = sign_url(v)
 
-    elif (
-        identify_stac_object_type(cast(Dict[str, Any], mapping)) == STACObjectType.ITEM
-    ):
+    elif identify_stac_object_type(cast(Dict[str, Any], mapping)) in types:
         for k, v in mapping["assets"].items():
             v["href"] = sign_url(v["href"])
             _sign_fsspec_asset_in_place(v)
