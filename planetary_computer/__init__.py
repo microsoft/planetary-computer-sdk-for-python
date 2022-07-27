@@ -3,6 +3,7 @@
 
 from planetary_computer.sas import (
     sign,
+    sign_inplace,
     sign_url,
     sign_item,
     sign_assets,

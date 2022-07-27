@@ -86,6 +86,15 @@ def sign(obj: Any, copy: bool = True) -> Any:
     )
 
 
+def sign_inplace(obj: Any) -> Any:
+    """
+    Sign the object in place.
+
+    See :func:`planetary_computer.sign` for more.
+    """
+    return sign(obj, copy=False)
+
+
 @sign.register(str)
 def sign_string(url: str, copy: bool = True) -> str:
     """Sign a URL or VRT-like string containing URLs with a Shared Access (SAS) Token
@@ -333,6 +342,9 @@ def sign_collection(collection: Collection, copy: bool = True) -> Collection:
     if copy:
         # https://github.com/stac-utils/pystac/pull/834 fixed asset dropping
         assets = collection.assets
+        sign_function = getattr(collection, "sign_function")
+        if sign_function:
+            collection.sign_function = sign_function
         collection = collection.clone()
         if assets and not collection.assets:
             collection.assets = deepcopy(assets)
