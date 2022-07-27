@@ -342,9 +342,6 @@ def sign_collection(collection: Collection, copy: bool = True) -> Collection:
     if copy:
         # https://github.com/stac-utils/pystac/pull/834 fixed asset dropping
         assets = collection.assets
-        sign_function = getattr(collection, "sign_function")
-        if sign_function:
-            collection.sign_function = sign_function
         collection = collection.clone()
         if assets and not collection.assets:
             collection.assets = deepcopy(assets)
