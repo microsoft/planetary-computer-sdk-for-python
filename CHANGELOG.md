@@ -5,6 +5,7 @@
 * `sign` now supports signing URLs that have already been signed.
 * `sign` now supports signing raw JSON objects, in addition to `pystac` objects.
 * `sign` now supports signing `Collection` objects.
+* Added a `sign_inplace` method for signing by directly mutating objects, rather than copying.
 
 # 0.4.6
 

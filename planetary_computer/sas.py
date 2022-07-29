@@ -86,6 +86,15 @@ def sign(obj: Any, copy: bool = True) -> Any:
     )
 
 
+def sign_inplace(obj: Any) -> Any:
+    """
+    Sign the object in place.
+
+    See :func:`planetary_computer.sign` for more.
+    """
+    return sign(obj, copy=False)
+
+
 @sign.register(str)
 def sign_string(url: str, copy: bool = True) -> str:
     """Sign a URL or VRT-like string containing URLs with a Shared Access (SAS) Token

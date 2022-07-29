@@ -316,6 +316,12 @@ class TestSigning(unittest.TestCase):
             result["assets"]["zarr-abfs"]["xarray:open_kwargs"]["storage_options"],
         )
 
+    def test_sign_inplace(self) -> None:
+        item = get_sample_item()
+        result = pc.sign_inplace(item)
+        self.assertIs(result, item)
+        self.assertSigned(result.assets["image"].href)
+
 
 class TestUtils(unittest.TestCase):
     def test_parse_adlfs_url(self) -> None:
