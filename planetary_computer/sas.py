@@ -403,7 +403,7 @@ def get_token(
     account_name: str,
     container_name: str,
     retry_total: int = 10,
-    retry_backoff_factor=0.08,
+    retry_backoff_factor: float = 0.08,
 ) -> SASToken:
     """
     Get a token for a container in a storage account.
