@@ -403,7 +403,7 @@ def get_token(
     account_name: str,
     container_name: str,
     retry_total: int = 10,
-    retry_backoff_factor: float = 0.08,
+    retry_backoff_factor: float = 0.8,
 ) -> SASToken:
     """
     Get a token for a container in a storage account.
@@ -417,7 +417,14 @@ def get_token(
         retry_total (int): The number of allowable retry attempts for REST API calls.
             Use retry_total=0 to disable retries. A backoff factor to apply between
             attempts.
-        retry_backoff_factor (float):
+        retry_backoff_factor (float): A backoff factor to apply between attempts
+        after the second try (most errors are resolved immediately by a second
+        try without a delay). Retry policy will sleep for:
+
+        ``{backoff factor} * (2 ** ({number of total retries} - 1))`` seconds.
+        If the backoff_factor is 0.1, then the retry will sleep for
+        [0.0s, 0.2s, 0.4s, ...] between retries. The default value is 0.8.
+
     Returns:
         SASToken: the generated token
     """
