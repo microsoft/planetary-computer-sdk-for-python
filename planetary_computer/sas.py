@@ -283,7 +283,7 @@ def _sign_fsspec_asset_in_place(asset: AssetLike) -> None:
         container = parse_adlfs_url(href)
         if account and container:
             token = get_token(account, container)
-            storage_options["credential"] = token.token
+            storage_options["sas_token"] = token.token
 
 
 def sign_assets(item: Item) -> Item:

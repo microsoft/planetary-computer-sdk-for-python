@@ -6,7 +6,10 @@ from pathlib import Path
 import warnings
 import pystac
 
+import adlfs.utils
+import fsspec.asyn
 import requests
+from adlfs import AzureBlobFileSystem
 
 import planetary_computer as pc
 from planetary_computer.utils import parse_blob_url, is_fsspec_asset, parse_adlfs_url
@@ -182,7 +185,7 @@ class TestSigning(unittest.TestCase):
         item = get_sample_zarr_item()
         result = pc.sign(item)
         self.assertIn(
-            "credential",
+            "sas_token",
             result.assets["zarr-abfs"].extra_fields["xarray:storage_options"],
         )
         self.assertRootResolved(item)
@@ -191,7 +194,7 @@ class TestSigning(unittest.TestCase):
         item = get_sample_zarr_open_dataset_item()
         result = pc.sign(item)
         self.assertIn(
-            "credential",
+            "sas_token",
             result.assets["zarr-abfs"].extra_fields["xarray:open_kwargs"][
                 "storage_options"
             ],
@@ -208,7 +211,7 @@ class TestSigning(unittest.TestCase):
 
         result = pc.sign(item)
         self.assertIn(
-            "credential",
+            "sas_token",
             result.assets["zarr-abfs"].extra_fields["xarray:open_kwargs"][
                 "backend_kwargs"
             ]["storage_options"],
@@ -219,9 +222,18 @@ class TestSigning(unittest.TestCase):
         item = get_sample_tabular_item()
         result = pc.sign(item)
         self.assertIn(
-            "credential", result.assets["data"].extra_fields["table:storage_options"]
+            "sas_token", result.assets["data"].extra_fields["table:storage_options"]
         )
         self.assertRootResolved(item)
+
+    def test_sign_tabular_item_with_adlfs(self) -> None:
+        item = get_sample_tabular_item()
+        result = pc.sign(item)
+        filesystem = AzureBlobFileSystem(
+            **result.assets["data"].extra_fields["table:storage_options"]
+        )
+        close_credential = fsspec.asyn.sync_wrapper(adlfs.utils.close_credential)
+        close_credential(filesystem)
 
     def test_sign_vrt(self) -> None:
         vrt_string = Path(HERE / "data-files/stacit.vrt").read_text()
@@ -249,7 +261,7 @@ class TestSigning(unittest.TestCase):
         item_dict = get_sample_zarr_open_dataset_item().to_dict()
         result = pc.sign(item_dict)
         self.assertIn(
-            "credential",
+            "sas_token",
             result["assets"]["zarr-abfs"]["xarray:open_kwargs"]["storage_options"],
         )
 
@@ -296,7 +308,7 @@ class TestSigning(unittest.TestCase):
         assert result is not collection
         asset = result.assets["zarr-abfs"]
         self.assertIn(
-            "credential",
+            "sas_token",
             asset.extra_fields["xarray:open_kwargs"]["storage_options"],
         )
 
@@ -304,7 +316,7 @@ class TestSigning(unittest.TestCase):
         assert result is collection
         asset = result.assets["zarr-abfs"]
         self.assertIn(
-            "credential",
+            "sas_token",
             asset.extra_fields["xarray:open_kwargs"]["storage_options"],
         )
 
@@ -312,7 +324,7 @@ class TestSigning(unittest.TestCase):
         collection_dict = get_sample_collection().to_dict()
         result = pc.sign(collection_dict)
         self.assertIn(
-            "credential",
+            "sas_token",
             result["assets"]["zarr-abfs"]["xarray:open_kwargs"]["storage_options"],
         )
 
