@@ -8,11 +8,13 @@ import warnings
 from functools import singledispatch
 from urllib.parse import urlparse, parse_qs
 import requests
+import requests.adapters
 from pydantic import BaseModel, Field
 from pystac import Asset, Item, ItemCollection, STACObjectType, Collection
 from pystac.utils import datetime_to_str
 from pystac.serialization.identify import identify_stac_object_type
 from pystac_client import ItemSearch
+import urllib3.util.retry
 
 from planetary_computer.settings import Settings
 from planetary_computer.utils import (
@@ -397,7 +399,12 @@ def sign_mapping(mapping: Mapping, copy: bool = True) -> Mapping:
 sign_reference_file = sign_mapping
 
 
-def get_token(account_name: str, container_name: str) -> SASToken:
+def get_token(
+    account_name: str,
+    container_name: str,
+    retry_total: int = 10,
+    retry_backoff_factor: float = 0.8,
+) -> SASToken:
     """
     Get a token for a container in a storage account.
 
@@ -407,6 +414,17 @@ def get_token(account_name: str, container_name: str) -> SASToken:
     Args:
         account_name (str): The storage account name.
         container_name (str): The storage container name.
+        retry_total (int): The number of allowable retry attempts for REST API calls.
+            Use retry_total=0 to disable retries. A backoff factor to apply between
+            attempts.
+        retry_backoff_factor (float): A backoff factor to apply between attempts
+        after the second try (most errors are resolved immediately by a second
+        try without a delay). Retry policy will sleep for:
+
+        ``{backoff factor} * (2 ** ({number of total retries} - 1))`` seconds.
+        If the backoff_factor is 0.1, then the retry will sleep for
+        [0.0s, 0.2s, 0.4s, ...] between retries. The default value is 0.8.
+
     Returns:
         SASToken: the generated token
     """
@@ -417,13 +435,24 @@ def get_token(account_name: str, container_name: str) -> SASToken:
     # Refresh the token if there's less than a minute remaining,
     # in order to give a small amount of buffer
     if not token or token.ttl() < 60:
-        headers = (
-            {"Ocp-Apim-Subscription-Key": settings.subscription_key}
-            if settings.subscription_key
-            else None
+        session = requests.Session()
+        retry = urllib3.util.retry.Retry(
+            total=retry_total,
+            backoff_factor=retry_backoff_factor,
         )
-        response = requests.get(token_request_url, headers=headers)
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        response = session.get(
+            token_request_url,
+            headers=(
+                {"Ocp-Apim-Subscription-Key": settings.subscription_key}
+                if settings.subscription_key
+                else None
+            ),
+        )
         response.raise_for_status()
+
         token = SASToken(**response.json())
         if not token:
             raise ValueError(f"No token found in response: {response.json()}")

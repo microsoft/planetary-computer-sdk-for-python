@@ -1,3 +1,9 @@
+# 0.4.8
+
+## New Features
+
+* `sign` now automatically retries failed HTTP requests.
+
 # 0.4.7
 
 ## New Features
