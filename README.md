@@ -19,32 +19,31 @@ planetarycomputer configure
 Alternatively, a subscription key may be provided by specifying it in the `PC_SDK_SUBSCRIPTION_KEY` environment variable. A subcription key is not required for interacting with the service, however having one in place allows for less restricted rate limiting.
 
 
-## Development
-
-The following steps may be followed in order to develop locally:
-
-```bash
-## Create and activate venv
-python3 -m venv env
-source env/bin/activate
-
-## Install requirements
-python3 -m pip install -r requirements-dev.txt
-
-## Install locally
-pip install -e .
-
-## Format code
-./scripts/format
-
-## Run tests
-./scripts/test
-```
-
-
 ## Usage
 
-This library currently assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. In addition, the `sign` function accepts a [STAC API Client](https://github.com/stac-utils/pystac-client) `ItemSearch`, which performs a search and returns the resulting `ItemCollection` with all assets signed. The following example demonstrates these use cases:
+This library assists with signing Azure Blob Storage URLs. The `sign` function operates directly on an HREF string, as well as several [PySTAC](https://github.com/stac-utils/pystac) objects: `Asset`, `Item`, and `ItemCollection`. In addition, the `sign` function accepts a [STAC API Client](https://pystac-client.readthedocs.io/en/stable/) `ItemSearch`, which performs a search and returns the resulting `ItemCollection` with all assets signed.
+
+### Automatic signing
+
+If you're using pystac-client we recommend you use its feature to [automatically sign results](https://pystac-client.readthedocs.io/en/stable/usage.html#automatically-modifying-results) with ``planetary_computer.sign_inplace``:
+
+```python
+import planetary_computer
+import pystac_client
+
+from pystac_client import Client
+import planetary_computer, requests
+api = Client.open(
+   'https://planetarycomputer.microsoft.com/api/stac/v1',
+   modifier=planetary_computer.sign_inplace,
+)
+```
+
+Now all the results you get from that client will be signed.
+
+### Manual signing
+
+Alternatively, you can manually call ``planetary_computer.sign`` on your results.
 
 ```python
 from pystac import Asset, Item, ItemCollection
@@ -80,6 +79,35 @@ search = ItemSearch(
 signed_item_collection = pc.sign(search)
 ```
 
+### Convenience methods
+
+You'll occasionally need to interact with the Blob Storage container directly, rather than
+using STAC items. We include two convenience methods for this:
+
+* `planetary_computer.get_container_client`: Get an [`azure.storage.blob.ContainerClient`](https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.containerclient?view=azure-python)
+* `planetary_computer.get_adlfs_fliesystem`: Get an [`adlfs.AzureBlobFilesystem`](https://github.com/fsspec/adlfs)
+
+## Development
+
+The following steps may be followed in order to develop locally:
+
+```bash
+## Create and activate venv
+python3 -m venv env
+source env/bin/activate
+
+## Install requirements
+python3 -m pip install -r requirements-dev.txt
+
+## Install locally
+pip install -e .
+
+## Format code
+./scripts/format
+
+## Run tests
+./scripts/test
+```
 
 ## Contributing
 

@@ -3,6 +3,8 @@
 ## New Features
 
 * `sign` now automatically retries failed HTTP requests.
+* Added a convenience method `planetary_computer.get_container_client` for getting an authenticated ``azure.storage.blob.ContainerClient``.
+* Added a convenience method `planetary_computer.get_adlfs_filesystem` for getting an authenticated ``adlfs.AzureBlobFileSystem``.
 
 # 0.4.7
 
