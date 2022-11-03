@@ -28,6 +28,6 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         flake8 planetary_computer tests
 
         echo "Running unit tests..."
-        python -m unittest discover tests
+        pytest -vs tests
     fi
 fi

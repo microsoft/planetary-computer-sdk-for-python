@@ -14,6 +14,7 @@ from pystac import Asset, Item, ItemCollection, STACObjectType, Collection
 from pystac.utils import datetime_to_str
 from pystac.serialization.identify import identify_stac_object_type
 from pystac_client import ItemSearch
+import pystac_client
 import urllib3.util.retry
 
 from planetary_computer.settings import Settings
@@ -336,7 +337,11 @@ def _search_and_sign(search: ItemSearch, copy: bool = True) -> ItemCollection:
         a "msft:expiry" property is added to the Item properties indicating the
         earliest expiry time for any assets that were signed.
     """
-    return sign(search.get_all_items())
+    if pystac_client.__version__ >= "0.5.0":
+        items = search.item_collection()
+    else:
+        items = search.get_all_items()
+    return sign(items)
 
 
 @sign.register(Collection)
