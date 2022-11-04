@@ -1,3 +1,9 @@
+# 0.4.9
+
+## Bug fixes
+
+* Fixed `ImportError` when the optional dependency `azure-storage-blob` isn't installed.
+
 # 0.4.8
 
 ## New Features
