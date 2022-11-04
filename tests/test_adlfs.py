@@ -13,6 +13,12 @@ def test_get_adlfs_filesystem_raises(monkeypatch: Any) -> None:
         planetary_computer.get_adlfs_filesystem("nrel", "oedi")
 
 
+def test_get_container_client_raises(monkeypatch: Any) -> None:
+    monkeypatch.setitem(sys.modules, "azure", None)
+    with pytest.raises(ImportError):
+        planetary_computer.get_container_client("nrel", "oedi")
+
+
 def test_get_adlfs_filesystem() -> None:
     fs = planetary_computer.get_adlfs_filesystem("nrel", "oedi")
     assert fs.account_url == "https://nrel.blob.core.windows.net"

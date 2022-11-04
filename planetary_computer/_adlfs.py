@@ -1,15 +1,15 @@
 import typing
 
-import azure.storage.blob
 from planetary_computer.sas import get_token
 
 if typing.TYPE_CHECKING:
     import adlfs
+    import azure.storage.blob
 
 
 def get_container_client(
     account_name: str, container_name: str
-) -> azure.storage.blob.ContainerClient:
+) -> "azure.storage.blob.ContainerClient":
     """
     Get a :class:`azure.storage.blob.ContainerClient` with credentials.
 
@@ -20,6 +20,14 @@ def get_container_client(
         The :class:`azure.storage.blob.ContainerClient` with the short-lived SAS token
         set as the credential.
     """
+    try:
+        import azure.storage.blob
+    except ImportError as e:
+        raise ImportError(
+            "'planetary_computer.get_container_clinent' requires "
+            "the optional dependency 'azure-storage-blob'."
+        ) from e
+
     token = get_token(account_name, container_name).token
     return azure.storage.blob.ContainerClient(
         f"https://{account_name}.blob.core.windows.net",
