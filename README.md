@@ -85,7 +85,7 @@ You'll occasionally need to interact with the Blob Storage container directly, r
 using STAC items. We include two convenience methods for this:
 
 * `planetary_computer.get_container_client`: Get an [`azure.storage.blob.ContainerClient`](https://learn.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.containerclient?view=azure-python)
-* `planetary_computer.get_adlfs_fliesystem`: Get an [`adlfs.AzureBlobFilesystem`](https://github.com/fsspec/adlfs)
+* `planetary_computer.get_adlfs_filesystem`: Get an [`adlfs.AzureBlobFilesystem`](https://github.com/fsspec/adlfs)
 
 ## Development
 
