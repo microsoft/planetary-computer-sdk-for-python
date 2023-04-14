@@ -374,6 +374,7 @@ class TestUtils(unittest.TestCase):
 
 @responses.activate
 def test_retry() -> None:
+    TOKEN_CACHE.clear()
     rsp1 = responses.Response(
         method="GET",
         url="https://planetarycomputer.microsoft.com/api/sas/v1/token/naipeuwest/naip",
