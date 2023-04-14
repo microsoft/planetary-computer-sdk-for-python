@@ -373,7 +373,7 @@ class TestUtils(unittest.TestCase):
 
 
 @responses.activate
-def test_retry():
+def test_retry() -> None:
 
     rsp1 = responses.Response(
         method="GET",
