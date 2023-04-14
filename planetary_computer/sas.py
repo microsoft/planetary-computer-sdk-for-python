@@ -444,6 +444,7 @@ def get_token(
         retry = urllib3.util.retry.Retry(
             total=retry_total,
             backoff_factor=retry_backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504]
         )
         adapter = requests.adapters.HTTPAdapter(max_retries=retry)
         session.mount("http://", adapter)
