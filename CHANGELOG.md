@@ -1,3 +1,9 @@
+# 0.5.1
+
+## Bug fixes
+
+* Fixed rety mechanism
+
 # 0.4.9
 
 ## Bug fixes
