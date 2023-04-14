@@ -58,7 +58,9 @@ class SASToken(SASBase):
 
     def sign(self, href: str) -> SignedLink:
         """Signs an href with this token"""
-        return SignedLink(href=f"{href}?{self.token}", expiry=self.expiry)
+        return SignedLink(
+            href=f"{href}?{self.token}", expiry=self.expiry  # type: ignore [call-arg]
+        )
 
     def ttl(self) -> float:
         """Number of seconds the token is still valid for"""
@@ -264,7 +266,6 @@ def _sign_fsspec_asset_in_place(asset: AssetLike) -> None:
 
         storage_options = None
         for key in ["table:storage_options", "xarray:storage_options"]:
-
             if key in extra_d:
                 storage_options = extra_d[key]
                 break
@@ -444,6 +445,7 @@ def get_token(
         retry = urllib3.util.retry.Retry(
             total=retry_total,
             backoff_factor=retry_backoff_factor,
+            status_forcelist=[429, 500, 502, 503, 504],
         )
         adapter = requests.adapters.HTTPAdapter(max_retries=retry)
         session.mount("http://", adapter)

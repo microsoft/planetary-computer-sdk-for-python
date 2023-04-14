@@ -5,7 +5,10 @@ from urllib.parse import parse_qs, urlparse
 from pathlib import Path
 import warnings
 import pystac
+import pytest
+from requests.exceptions import RetryError
 
+import responses
 import requests
 
 import planetary_computer as pc
@@ -367,3 +370,19 @@ class TestUtils(unittest.TestCase):
 
         asset = Asset("adlfs://my-container/my/path.ext")
         self.assertFalse(is_fsspec_asset(asset))
+
+
+@responses.activate
+def test_retry() -> None:
+    TOKEN_CACHE.clear()
+    rsp1 = responses.Response(
+        method="GET",
+        url="https://planetarycomputer.microsoft.com/api/sas/v1/token/naipeuwest/naip",
+        status=503,
+    )
+    responses.add(rsp1)
+
+    with pytest.raises(RetryError):
+        get_token("naipeuwest", "naip")
+
+    assert rsp1.call_count == 11
