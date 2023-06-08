@@ -1,9 +1,39 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
-[tool.ipdb]
-context=5
+[project]
+name = "planetary-computer"
+version = "0.5.1"
+authors = [{name = "microsoft", email = "planetarycomputer@microsoft.com"}]
+description = "Planetary Computer SDK for Python"
+requires-python = ">=3.7"
+dependencies = [
+    "click>=7.1",
+    "pydantic[dotenv]>=1.7.3",
+    "pystac>=1.0.0",
+    "pystac-client>=0.2.0",
+    "pytz>=2020.5",
+    "requests>=2.25.1",
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+
+[project.optional-dependencies]
+adlfs = ["adlfs"]
+azure = ["azure-storage-blob"]
+dev = [
+    "black",
+    "flake8",
+    "mypy",
+    "types-requests",
+    "setuptools",
+    "pytest",
+    "responses",
+]
+
+[project.scripts]
+planetarycomputer = "planetary_computer.scripts.cli:app"
+
+[tool.setuptools]
+include-package-data = false
