@@ -23,9 +23,9 @@ def set_subscription_key(key: str) -> None:
     Settings.get().subscription_key = key
 
 
-
 def _from_env(key: str) -> Optional[str]:
     import dotenv
+
     value = os.environ.get(key)
     if value is None:
         dotenv.load_dotenv(os.path.expanduser(SETTINGS_ENV_FILE))
@@ -35,6 +35,7 @@ def _from_env(key: str) -> Optional[str]:
 
 def _subscription_key_default() -> Optional[str]:
     return _from_env("PC_SDK_SUBSCRIPTION_KEY")
+
 
 def _sas_url_default() -> str:
     return _from_env("PC_SDK_SAS_URL") or DEFAULT_SAS_TOKEN_ENDPOINT
@@ -53,7 +54,10 @@ class Settings:
 
     All settings are prefixed with `PC_SDK_`
     """
-    subscription_key: Optional[str] = dataclasses.field(default_factory=_subscription_key_default)
+
+    subscription_key: Optional[str] = dataclasses.field(
+        default_factory=_subscription_key_default
+    )
     sas_url: Optional[str] = dataclasses.field(default_factory=_sas_url_default)
 
     @staticmethod
