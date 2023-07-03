@@ -28,7 +28,9 @@ from planetary_computer.utils import (
     asset_xpr,
 )
 
-_PYDANTIC_2_0 = packaging.version.parse(pydantic.__version__) >= packaging.version.parse("2.0.0")
+_PYDANTIC_2_0 = packaging.version.parse(
+    pydantic.__version__
+) >= packaging.version.parse("2.0.0")
 
 
 BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"

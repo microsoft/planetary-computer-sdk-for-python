@@ -23,15 +23,14 @@ def set_subscription_key(key: str) -> None:
     Settings.get().subscription_key = key
 
 
-
 def _from_env(key, default=None) -> Optional[str]:
     import dotenv
+
     value = os.environ.get(key)
     if value is None:
         dotenv.load_dotenv(os.path.expanduser(SETTINGS_ENV_FILE))
         value = os.environ.get(key)
     return value or default
-
 
 
 def _subscription_key_default() -> Optional[str]:
@@ -44,7 +43,9 @@ def _sas_url_default() -> str:
 
 @dataclasses.dataclass
 class Settings:
-    subscription_key: Optional[str] = dataclasses.field(default_factory=_subscription_key_default)
+    subscription_key: Optional[str] = dataclasses.field(
+        default_factory=_subscription_key_default
+    )
     sas_url: Optional[str] = dataclasses.field(default_factory=_sas_url_default)
 
     @staticmethod
