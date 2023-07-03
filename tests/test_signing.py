@@ -148,6 +148,7 @@ class TestSigning(unittest.TestCase):
             collections=CONTAINER_NAME,
             limit=1,
             max_items=1,
+            datetime="2018"
         )
         signed_item_collection = pc.sign(search)
         self.assertEqual(len(list(signed_item_collection)), 1)
