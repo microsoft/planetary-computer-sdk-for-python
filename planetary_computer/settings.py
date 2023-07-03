@@ -42,6 +42,17 @@ def _sas_url_default() -> str:
 
 @dataclasses.dataclass
 class Settings:
+    """PC SDK configuration settings
+
+    Settings defined here are attempted to be read in two ways, in this order:
+      * environment variables
+      * environment file: ~/.planetarycomputer/settings.env
+
+    That is, any settings defined via environment variables will take precedence
+    over settings defined in the environment file, so can be used to override.
+
+    All settings are prefixed with `PC_SDK_`
+    """
     subscription_key: Optional[str] = dataclasses.field(default_factory=_subscription_key_default)
     sas_url: Optional[str] = dataclasses.field(default_factory=_sas_url_default)
 
