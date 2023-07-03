@@ -1,7 +1,8 @@
 import os
 from functools import lru_cache
-from typing import Optional, TypeVar
+from typing import Optional
 import dataclasses
+import dotenv
 
 
 SETTINGS_ENV_FILE = "~/.planetarycomputer/settings.env"
@@ -24,8 +25,6 @@ def set_subscription_key(key: str) -> None:
 
 
 def _from_env(key: str) -> Optional[str]:
-    import dotenv
-
     value = os.environ.get(key)
     if value is None:
         dotenv.load_dotenv(os.path.expanduser(SETTINGS_ENV_FILE))
