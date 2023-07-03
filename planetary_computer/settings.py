@@ -1,6 +1,6 @@
 import os
 from functools import lru_cache
-from typing import Optional
+from typing import Optional, TypeVar
 import dataclasses
 
 
@@ -23,29 +23,26 @@ def set_subscription_key(key: str) -> None:
     Settings.get().subscription_key = key
 
 
-def _from_env(key, default=None) -> Optional[str]:
-    import dotenv
 
+def _from_env(key: str) -> Optional[str]:
+    import dotenv
     value = os.environ.get(key)
     if value is None:
         dotenv.load_dotenv(os.path.expanduser(SETTINGS_ENV_FILE))
         value = os.environ.get(key)
-    return value or default
+    return value
 
 
 def _subscription_key_default() -> Optional[str]:
     return _from_env("PC_SDK_SUBSCRIPTION_KEY")
 
-
 def _sas_url_default() -> str:
-    return _from_env("PC_SDK_SAS_URL", default=DEFAULT_SAS_TOKEN_ENDPOINT)
+    return _from_env("PC_SDK_SAS_URL") or DEFAULT_SAS_TOKEN_ENDPOINT
 
 
 @dataclasses.dataclass
 class Settings:
-    subscription_key: Optional[str] = dataclasses.field(
-        default_factory=_subscription_key_default
-    )
+    subscription_key: Optional[str] = dataclasses.field(default_factory=_subscription_key_default)
     sas_url: Optional[str] = dataclasses.field(default_factory=_sas_url_default)
 
     @staticmethod
