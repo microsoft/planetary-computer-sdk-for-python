@@ -9,6 +9,8 @@ from functools import singledispatch
 from urllib.parse import urlparse, parse_qs
 import requests
 import requests.adapters
+import packaging.version
+import pydantic
 from pydantic import BaseModel, Field
 from pystac import Asset, Item, ItemCollection, STACObjectType, Collection
 from pystac.utils import datetime_to_str
@@ -26,6 +28,10 @@ from planetary_computer.utils import (
     asset_xpr,
 )
 
+_PYDANTIC_2_0 = packaging.version.parse(
+    pydantic.__version__
+) >= packaging.version.parse("2.0.0")
+
 
 BLOB_STORAGE_DOMAIN = ".blob.core.windows.net"
 AssetLike = TypeVar("AssetLike", Asset, Dict[str, Any])
@@ -38,8 +44,11 @@ class SASBase(BaseModel):
     """RFC339 datetime format of the time this token will expire"""
 
     class Config:
-        json_encoders = {datetime: datetime_to_str}
-        allow_population_by_field_name = True
+        if _PYDANTIC_2_0:
+            populate_by_name = True
+        else:
+            allow_population_by_field_name = True
+            json_encoders = {datetime: datetime_to_str}
 
 
 class SignedLink(SASBase):

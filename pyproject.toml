@@ -4,18 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "planetary-computer"
-version = "0.5.1"
 authors = [{name = "microsoft", email = "planetarycomputer@microsoft.com"}]
 description = "Planetary Computer SDK for Python"
 requires-python = ">=3.7"
 dependencies = [
     "click>=7.1",
-    "pydantic[dotenv]>=1.7.3",
+    "pydantic>=1.7.3",
     "pystac>=1.0.0",
     "pystac-client>=0.2.0",
     "pytz>=2020.5",
     "requests>=2.25.1",
+    "packaging",
+    "python-dotenv",
+
 ]
+dynamic = ["version"]
 readme = "README.md"
 license = {file = "LICENSE"}
 
@@ -37,3 +40,6 @@ planetarycomputer = "planetary_computer.scripts.cli:app"
 
 [tool.setuptools]
 include-package-data = false
+
+[tool.setuptools.dynamic]
+version = {attr = "planetary_computer.version.__version__"}

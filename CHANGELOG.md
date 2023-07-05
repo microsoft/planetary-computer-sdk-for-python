@@ -1,3 +1,16 @@
+# 1.0.0
+
+## Bug fixes
+
+* Compatibility with `pydantic>=2.0` (https://github.com/microsoft/planetary-computer-sdk-for-python/pull/59)
+
+## API Breaking Changes
+
+* `planetary_computer.settings.Settings()` is no longer a pydantic Model. To support both pydantic 1.x and 2.x,
+  the implementation of `Settings` changed. There aren't any user-facing changes in the primary API exposed by
+  `Settings`, around creating the settings object and getting / setting values. But it no longer subclasses
+  `pydantic.BaseModel`  (https://github.com/microsoft/planetary-computer-sdk-for-python/pull/59).
+
 # 0.5.1
 
 ## Bug fixes
