@@ -206,9 +206,9 @@ class TestSigning(unittest.TestCase):
         # nest inside backend_kwargs
         item = get_sample_zarr_open_dataset_item()
         extra_fields = item.assets["zarr-abfs"].extra_fields
-        extra_fields["xarray:open_kwargs"]["backend_kwargs"][
-            "storage_options"
-        ] = extra_fields["xarray:open_kwargs"].pop("storage_options")
+        extra_fields["xarray:open_kwargs"]["backend_kwargs"]["storage_options"] = (
+            extra_fields["xarray:open_kwargs"].pop("storage_options")
+        )
 
         result = pc.sign(item)
         self.assertIn(
