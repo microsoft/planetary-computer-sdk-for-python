@@ -100,7 +100,7 @@ source env/bin/activate
 python3 -m pip install -r requirements-dev.txt
 
 ## Install locally
-pip install -e .
+pip install -e .[adlfs,azure,dev]
 
 ## Format code
 ./scripts/format

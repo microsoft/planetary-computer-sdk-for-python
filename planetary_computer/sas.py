@@ -43,10 +43,11 @@ class SASBase(BaseModel):
     expiry: datetime = Field(alias="msft:expiry")
     """RFC339 datetime format of the time this token will expire"""
 
-    class Config:
-        if _PYDANTIC_2_0:
-            populate_by_name = True
-        else:
+    if _PYDANTIC_2_0:
+        model_config = pydantic.ConfigDict(populate_by_name=True)
+    else:
+
+        class Config:
             allow_population_by_field_name = True
             json_encoders = {datetime: datetime_to_str}
 
