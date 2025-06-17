@@ -13,12 +13,14 @@ from planetary_computer.sas import (
 )
 from planetary_computer.settings import set_subscription_key
 from planetary_computer._adlfs import get_adlfs_filesystem, get_container_client
+from planetary_computer._obstore import get_obstore
 
 from planetary_computer.version import __version__
 
 __all__ = [
     "get_adlfs_filesystem",
     "get_container_client",
+    "get_obstore",
     "set_subscription_key",
     "sign_asset",
     "sign_assets",

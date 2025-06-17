@@ -19,7 +19,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     else
         # Install/upgrade dependencies
         python -m pip install --upgrade pip
-        pip install -e .[adlfs,azure,dev]
+        pip install -e .[adlfs,azure,dev,obstore]
 
         ./scripts/test
     fi

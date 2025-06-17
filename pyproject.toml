@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "planetary-computer"
 authors = [{name = "microsoft", email = "planetarycomputer@microsoft.com"}]
 description = "Planetary Computer SDK for Python"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
     "click>=7.1",
     "pydantic>=1.7.3",
@@ -34,6 +34,7 @@ dev = [
     "pytest",
     "responses",
 ]
+obstore = ["obstore"]
 
 [project.scripts]
 planetarycomputer = "planetary_computer.scripts.cli:app"
